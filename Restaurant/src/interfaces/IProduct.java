@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface Product {
+public interface IProduct {
 	public int[] getBundlePack();
 
 	public String getName();

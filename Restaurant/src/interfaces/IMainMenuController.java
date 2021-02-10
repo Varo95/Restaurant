@@ -3,8 +3,9 @@ package interfaces;
 import java.time.LocalDateTime;
 
 import models.Client;
+import models.Order;
 
-public interface MainMenuController {
+public interface IMainMenuController {
 	public boolean newOrder(Client c, LocalDateTime id);
 
 	public boolean changeOrder(Client c);

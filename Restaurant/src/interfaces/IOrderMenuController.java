@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface OrderMenuController {
+public interface IOrderMenuController {
 	public boolean addProduct();
 
 	public boolean editLine();
