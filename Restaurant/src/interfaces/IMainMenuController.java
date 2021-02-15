@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import models.Client;
 import models.Order;
@@ -26,9 +27,9 @@ public interface IMainMenuController {
 
 	public double cashTotal();
 
-	public Order[] viewOrdersNotPayed();
+	public ArrayList<Order> viewOrdersNotPayed();
 
-	public Order[] viewOrdersPendingDelivered();
+	public ArrayList<Order> viewOrdersPendingDelivered();
 
 	public void saveAllAndClose();
 }
