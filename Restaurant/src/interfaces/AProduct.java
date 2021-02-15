@@ -10,6 +10,9 @@ public abstract class AProduct {
 	protected boolean forCeliac;
 	protected ArrayList<Integer> bundlePack;
 	
+	public AProduct() {
+		
+	}
 	public AProduct(String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack) {
 		this.name = name;
 		this.price = price;

@@ -12,6 +12,14 @@ public class Food extends AProduct {
 		super(name, price, forCeliac, bundlePack);
 		this.forVegan = forVegan;
 	}
+	public Food() {
+		
+		
+	}
+	public Food(boolean forVegan) {
+		this.forVegan = forVegan;
+		
+	}
 
 	public boolean isForVegan() {
 		return forVegan;
