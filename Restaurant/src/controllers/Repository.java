@@ -5,30 +5,28 @@ import java.util.ArrayList;
 import interfaces.AProduct;
 import models.Drink;
 import models.Food;
-import models.Order;
 
 
 public class Repository {
 
-	private  ArrayList<AProduct> products;
-	
-	public static Repository instance;
+private  ArrayList<AProduct> products;
+    
+    public static Repository instance;
 
-	public static Repository getInstance() {
-		if(instance==null) {
-			instance = new Repository();
-		}
-		return instance;
-	}
-	
-	private Repository() {
-		this.products=new ArrayList<AProduct>();
-	}
-	
-	public Repository(ArrayList<AProduct> products) {
-		this.products = products;
-	}
-
+    public static Repository getInstance() {
+        if(instance==null) {
+            instance = new Repository();
+        }
+        return instance;
+    }
+    
+    private Repository() {
+        this.products=new ArrayList<AProduct>();
+    }
+    
+    public Repository(ArrayList<AProduct> products) {
+        this.products = products;
+    }
 	//TODAS LOS PRODUCTOS
 	public ArrayList<AProduct> getAllProducts() {
 		
@@ -107,7 +105,7 @@ public class Repository {
 	//TODAS LAS COMIDAS VEGANAS
 	public ArrayList<AProduct> getAllVeganFood(){
 		ArrayList<AProduct> result = null;
-		Food tmp=new Food(true);
+		Food tmp=new Food();
 		for(int i=0; i<products.size();i++) {
 			
 			if(products.get(i).getClass() == tmp.getClass()) {
@@ -121,6 +119,32 @@ public class Repository {
 		}
 		return result;
 	}
+	
+	//TODAS LAS COMIDAS PARA CELIACOS
+	public ArrayList<AProduct> getAllCeliacProducts(){
+		ArrayList<AProduct> result = null;
+		
+		
+		for(int i=0; i<products.size();i++) {
+			
+			if(products.get(i).isForCeliac()) {
+				
+				result.add(products.get(i));
+			}
+		}
+			
+		
+		return result;
+	}
+	
+	//BUSCAR PACK INSERTANDO PRODUCTO
+	public ArrayList<AProduct> getBundleProduct(AProduct p){
+			ArrayList<AProduct> result = null;
+			
+			
+			return result;
+	}
+	
 	//BUSCAR PRODUCTO POR EL NOMBRE
 	public ArrayList<AProduct> searchProduct(String name){
 		ArrayList<AProduct> result = null;
@@ -165,6 +189,8 @@ public class Repository {
 			}
 			return result;
 		}
+		
+		
 	
 	
 	
