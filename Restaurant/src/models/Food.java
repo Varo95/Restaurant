@@ -8,8 +8,8 @@ public class Food extends AProduct {
 
 	private boolean forVegan;
 	
-	public Food(String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack, boolean forVegan) {
-		super(name, price, forCeliac, bundlePack);
+	public Food(int id,String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack, boolean forVegan) {
+		super(id,name, price, forCeliac, bundlePack);
 		this.forVegan = forVegan;
 	}
 	public Food() {

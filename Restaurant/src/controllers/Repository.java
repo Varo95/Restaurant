@@ -140,7 +140,35 @@ private  ArrayList<AProduct> products;
 	//BUSCAR PACK INSERTANDO PRODUCTO
 	public ArrayList<AProduct> getBundleProduct(AProduct p){
 			ArrayList<AProduct> result = null;
-			
+			Drink d1=new Drink();
+			Food f1=new Food();
+			for(int i=0; i<products.size();i++) {
+				
+				if(products.get(i).equals(p)) {
+					
+					if(products.get(i).getClass() == d1.getClass()) {
+						
+						Drink d2= (Drink) products.get(i);
+						
+						for(int j=0;j<d2.getBundlePack().size();j++) {
+							
+						int tmp=d2.getBundlePack().get(j);
+						result.add(products.get(tmp));
+						}
+						
+					}else if(products.get(i).getClass() == f1.getClass()) {
+						
+						Food f2=(Food) products.get(i);
+						for(int j=0;j<f2.getBundlePack().size();j++) {
+							
+							int tmp=f2.getBundlePack().get(j);
+							result.add(products.get(tmp));
+							}
+					}
+					
+					//for(int j=0;j<products.get(i).)
+				}
+			}
 			
 			return result;
 	}
