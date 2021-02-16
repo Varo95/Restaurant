@@ -14,6 +14,7 @@ public abstract class AProduct {
 		
 	}
 	public AProduct(String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack) {
+		this.id++;
 		this.name = name;
 		this.price = price;
 		this.forCeliac = forCeliac;

@@ -5,12 +5,25 @@ import java.util.ArrayList;
 import interfaces.AProduct;
 import models.Drink;
 import models.Food;
+import models.Order;
 
 
 public class Repository {
 
 	private  ArrayList<AProduct> products;
 	
+	public static Repository instance;
+
+	public static Repository getInstance() {
+		if(instance==null) {
+			instance = new Repository();
+		}
+		return instance;
+	}
+	
+	private Repository() {
+		this.products=new ArrayList<AProduct>();
+	}
 	
 	public Repository(ArrayList<AProduct> products) {
 		this.products = products;

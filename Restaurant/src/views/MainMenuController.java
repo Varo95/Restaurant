@@ -15,7 +15,7 @@ public class MainMenuController implements IMainMenuController {
 	public boolean newOrder(Client c, LocalDateTime id) {
 		boolean result=false;
 		if(c!=null && id!=null && c.getDni()!=null) {
-			//TODO code here
+			
 		}
 		return result;
 	}

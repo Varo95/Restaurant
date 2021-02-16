@@ -6,15 +6,24 @@ import models.Order;
 
 public class RepositoryOrders {
 	private ArrayList<Order> orders;
+	public static RepositoryOrders instance;
 
+	public static RepositoryOrders getInstance() {
+		if(instance==null) {
+			instance = new RepositoryOrders();
+		}
+		return instance;
+	}
+	
+	private RepositoryOrders() {
+		this.orders=new ArrayList<Order>();
+	}
 	public RepositoryOrders(ArrayList<Order> orders) {
-		orders = new ArrayList<Order>();
 		this.orders = orders;
 	}
 
 	public ArrayList<Order> getAllOrders() {
 		return orders;
-
 	}
 
 	public ArrayList<Order> getOrdersByClient(String dni) {

@@ -7,18 +7,17 @@ import models.Client;
 public class RepositoryClients{
 
 	private ArrayList<Client> clients;
-	//private static RepositoryClients clients;
+	
+	public static RepositoryClients instance;
 
-	/*public static RepositoryClients getClients(ArrayList<Client> clients) {
-		return clients = new RepositoryClients(clients);
+	public static RepositoryClients getInstance() {
+		if(instance==null) {
+			instance = new RepositoryClients();
+		}
+		return instance;
 	}
 
-	
-	public RepositoryClients(ArrayList<Client> clients) {
-		this.clients = clients;
-	}*/
-
-	public RepositoryClients() {
+	private RepositoryClients() {
 		clients=new ArrayList<Client>();
 	}
 	
@@ -43,6 +42,7 @@ public class RepositoryClients{
 		return result;
 	}
 
+	//Devolviendo Strings?
 	public int updateClient(Client c) {
 		int result = 0;
 		if (c != null && c.getDni()!=null && !(c.getDni().isEmpty())) {
