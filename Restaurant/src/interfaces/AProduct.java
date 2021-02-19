@@ -5,12 +5,15 @@ import java.util.ArrayList;
 public abstract class AProduct implements IProduct {
 
 	protected int id;
+
+
 	protected String name;
 	protected double price;
 	protected boolean forCeliac;
 	protected ArrayList<Integer> bundlePack;
 	
 	public AProduct() {}
+
 	public AProduct(int id,String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack) {
 		this.id=id;
 		this.name = name;
@@ -30,6 +33,5 @@ public abstract class AProduct implements IProduct {
 	public boolean isForCeliac() {
 		return forCeliac;
 	}
-	
 	
 }
