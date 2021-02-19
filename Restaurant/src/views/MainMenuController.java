@@ -3,19 +3,20 @@ package views;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import controllers.RepositoryOrders;
 import interfaces.IMainMenuController;
 import models.Client;
 import models.Order;
 
 public class MainMenuController implements IMainMenuController {
 	
+	RepositoryOrders orders = RepositoryOrders.getInstance();
 	
-
 	@Override
 	public boolean newOrder(Client c, LocalDateTime id) {
 		boolean result=false;
 		if(c!=null && id!=null && c.getDni()!=null) {
-			
+			//buscar cliente y si no lo encuentra, crear uno nuevo
 		}
 		return result;
 	}

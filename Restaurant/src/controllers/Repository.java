@@ -25,9 +25,6 @@ public class Repository {
 		this.products=new ArrayList<AProduct>();
 	}
 	
-	public Repository(ArrayList<AProduct> products) {
-		this.products = products;
-	}
 
 	//TODAS LOS PRODUCTOS
 	public ArrayList<AProduct> getAllProducts() {

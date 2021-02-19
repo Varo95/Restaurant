@@ -2,19 +2,17 @@ package interfaces;
 
 import java.util.ArrayList;
 
-public abstract class AProduct {
+public abstract class AProduct implements IProduct {
 
-	protected static int id;
+	protected int id;
 	protected String name;
 	protected double price;
 	protected boolean forCeliac;
 	protected ArrayList<Integer> bundlePack;
 	
-	public AProduct() {
-		
-	}
-	public AProduct(String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack) {
-		this.id++;
+	public AProduct() {}
+	public AProduct(int id,String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack) {
+		this.id=id;
 		this.name = name;
 		this.price = price;
 		this.forCeliac = forCeliac;
@@ -32,5 +30,6 @@ public abstract class AProduct {
 	public boolean isForCeliac() {
 		return forCeliac;
 	}
+	
 	
 }

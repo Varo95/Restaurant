@@ -1,7 +1,9 @@
 package interfaces;
 
+import java.util.ArrayList;
+
 public interface IProduct {
-	public int[] getBundlePack();
+	public ArrayList<Integer> getBundlePack();
 
 	public String getName();
 

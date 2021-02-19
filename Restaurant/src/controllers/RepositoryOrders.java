@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import models.Order;
 
 public class RepositoryOrders {
+	
 	private ArrayList<Order> orders;
+	
 	public static RepositoryOrders instance;
 
 	public static RepositoryOrders getInstance() {
