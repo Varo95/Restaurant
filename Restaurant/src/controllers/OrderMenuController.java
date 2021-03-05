@@ -34,11 +34,12 @@ public class OrderMenuController implements IOrderMenuController {
 		return result;
 	}
 	@Override
+	//Este metodo edita una linea
 	public boolean editLine(Order o, int n, boolean cant) {
 		boolean result = false;
 		int index = orders.indexOf(o);
 		if (!cant) {
-			// llamar a vista para cambiar product
+			// llamar a vista para cambiar product 
 			//orders.get(index).getProducts().get(n).setProduct();
 		} else {
 			//orders.get(index).getProducts().get(n).setCantidad();
