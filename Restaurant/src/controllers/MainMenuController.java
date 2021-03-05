@@ -1,29 +1,32 @@
-package views;
+package controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import controllers.RepositoryOrders;
 import interfaces.IMainMenuController;
 import models.Client;
 import models.Order;
+import modelsrepository.RepositoryOrders;
+import views.MenuViews;
 
 public class MainMenuController implements IMainMenuController {
 	
 	RepositoryOrders orders = RepositoryOrders.getInstance();
+	MenuViews MV = new MenuViews();
 	
 	@Override
 	public boolean newOrder(Client c, LocalDateTime id) {
 		boolean result=false;
-		if(c!=null && id!=null && c.getDni()!=null) {
-			//buscar cliente y si no lo encuentra, crear uno nuevo
-		}
+		Order tmp = MV.addOrderView(c, id);
+		orders.getAllOrders().add(tmp);
+		result=true;
 		return result;
 	}
 
 	@Override
 	public boolean changeOrder(Client c) {
 		boolean result=false;
+		orders.getAllOrders().get(1).setClient(c);
 		return result;
 	}
 

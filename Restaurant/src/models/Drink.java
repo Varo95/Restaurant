@@ -27,7 +27,10 @@ public class Drink extends AProduct{
 
 	@Override
 	public boolean getIsForCeliac() {
-		// TODO Auto-generated method stub
-		return false;
+		return super.isForCeliac();
+	}
+	@Override
+	public String toString() {
+		return name+" -- "+price+ " €";
 	}
 }

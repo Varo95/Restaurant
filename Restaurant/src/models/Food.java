@@ -8,7 +8,7 @@ public class Food extends AProduct {
 
 	private boolean forVegan;
 	
-	public Food(int id,String name, double price, boolean forCeliac, ArrayList<Integer> bundlePack, boolean forVegan) {
+	public Food(int id,String name, double price, boolean forCeliac, boolean forVegan, ArrayList<Integer> bundlePack) {
 		super(id,name, price, forCeliac, bundlePack);
 		this.forVegan = forVegan;
 	}
@@ -38,8 +38,11 @@ public class Food extends AProduct {
 	}
 	@Override
 	public boolean getIsForCeliac() {
-		// TODO Auto-generated method stub
-		return false;
+		return super.isForCeliac();
+	}
+	@Override
+	public String toString() {
+		return name+" -- "+price+" €";
 	}
 	
 }

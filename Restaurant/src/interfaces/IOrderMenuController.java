@@ -1,11 +1,13 @@
 package interfaces;
 
+import models.Order;
+
 public interface IOrderMenuController {
-	public boolean addProduct();
+	public boolean addProduct(Order o);
 
-	public boolean editLine();
+	public boolean editLine(Order o, int n, boolean cant);
 
-	public boolean removeLine();
+	public boolean removeLine(Order o, int n);
 
 	public boolean setAddress(String a);
 

@@ -8,7 +8,7 @@ import interfaces.AProduct;
 public class Order {
 
 	private Client client;
-	private ArrayList<AProduct> products;
+	private ArrayList<Line> products;
 	private double total;
 	private LocalDateTime date;
 	private String address;
@@ -26,12 +26,12 @@ public class Order {
 	}
 
 
-	public ArrayList<AProduct> getProducts() {
+	public ArrayList<Line> getProducts() {
 		return products;
 	}
 
 
-	public void setProducts(ArrayList<AProduct> products) {
+	public void setProducts(ArrayList<Line> products) {
 		this.products = products;
 	}
 

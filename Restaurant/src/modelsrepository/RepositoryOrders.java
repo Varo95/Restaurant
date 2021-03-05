@@ -1,4 +1,4 @@
-package controllers;
+package modelsrepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,9 +19,6 @@ public class RepositoryOrders {
 	
 	private RepositoryOrders() {
 		this.orders=new ArrayList<Order>();
-	}
-	public RepositoryOrders(ArrayList<Order> orders) {
-		this.orders = orders;
 	}
 
 	public ArrayList<Order> getAllOrders() {

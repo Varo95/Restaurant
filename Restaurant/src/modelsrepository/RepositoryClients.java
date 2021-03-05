@@ -1,4 +1,4 @@
-package controllers;
+package modelsrepository;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class RepositoryClients{
 		if (name != null && !(name.isEmpty())) {
 			result = new ArrayList<Client>();
 			for (Client c : clients) {
-				if (c.getName().equals(name)) {
+				if (c.getName().matches("*"+name+"*")) {
 					result.add(c);
 				}
 			}

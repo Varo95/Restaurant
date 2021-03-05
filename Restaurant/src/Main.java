@@ -1,9 +1,10 @@
+import views.MenuViews;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		MenuViews a=new MenuViews();
+		a.mainmenu();
 	}
 
 }
