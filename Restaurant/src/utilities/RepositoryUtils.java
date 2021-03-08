@@ -120,6 +120,22 @@ public class RepositoryUtils {
 		Food cc=new Food(3,"Hamburguesa Vegana",6.00,true,true,bp);
 		Food dd=new Food(4,"Hamburguesa Casera(Vacuno)",5.0,true,false,bp);
 		Food ee=new Food(5,"Hamburguesa Casera(Cerdo)",5.0,true,false,bp);
+		Food ff=new Food(6,"Cachopo",3.5,false,false,bp);
+		Food gg=new Food(7,"Tortilla de patatas",4.0,true,true,bp);
+		Food hh=new Food(8,"Arroz con tomate",3.5,true,true,bp);
+		Food ii=new Food(9,"Arroz negro",6.0,true,false,bp);
+		Food jj=new Food(10,"Pizza Jamon y Queso",7.8,false,false,bp);
+		Food kk=new Food(11,"Cocido",6.7,true,false,bp);
+		Food ll=new Food(12,"Patatas Bravas",3.5,true,true,bp);
+		Food mm=new Food(13,"Gazpacho",2.5,true,true,bp);
+		Food nn=new Food(14,"Croquetas de jamon",2.0,false,false,bp);
+		Food oo=new Food(15,"Salmorejo",3.0,true,true,bp);
+		Food pp=new Food(16,"Perrito caliente",2.5,false,false,bp);
+		Food qq=new Food(17,"Ensalada de pollo",3.0,true,false,bp);
+		Food rr=new Food(18,"Ensalada de pasta",3.0,true,true,bp);
+		Food ss=new Food(19,"Brochetas de verduras",2.0,true,true,bp);
+		Food tt=new Food(20,"Croquetas de calabacín",4.0,true,true,bp);
+		//Anadiendo Drink
 		result.add(a);
 		result.add(b);
 		result.add(c);
@@ -140,12 +156,27 @@ public class RepositoryUtils {
 		result.add(r);
 		result.add(s);
 		result.add(t);
-		//
+		//Ananiendo Food
 		result.add(aa);
 		result.add(bb);
 		result.add(cc);
 		result.add(dd);
 		result.add(ee);
+		result.add(ff);
+		result.add(gg);
+		result.add(hh);
+		result.add(ii);
+		result.add(jj);
+		result.add(kk);
+		result.add(ll);
+		result.add(mm);
+		result.add(nn);
+		result.add(oo);
+		result.add(pp);
+		result.add(qq);
+		result.add(rr);
+		result.add(ss);
+		result.add(tt);
 		return result;
 	}
 }
