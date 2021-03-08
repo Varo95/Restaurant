@@ -2,11 +2,17 @@ package controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+
 
 import interfaces.IMainMenuController;
 import models.Client;
 import models.Order;
+import modelsrepository.RepositoryClients;
 import modelsrepository.RepositoryOrders;
+import utilities.RepositoryUtils;
 import views.MenuViews;
 
 public class MainMenuController implements IMainMenuController {
@@ -163,37 +169,89 @@ public class MainMenuController implements IMainMenuController {
 
     @Override
     public double cashToDay() {
-        double result=-1;
+        double result=0;
+        int day=Calendar.DAY_OF_WEEK_IN_MONTH;
+        
+        for(int i=0;i<orders.getAllOrders().size();i++) {
+        	
+        	int day1= orders.getAllOrders().get(i).getDate().getDayOfMonth();
+        	
+        	boolean isPayed = orders.getAllOrders().get(i).isPayed();
+        	
+        	if(day == day1 && isPayed) {
+        		
+        		result+= orders.getAllOrders().get(i).getTotal();
+        	}
+        }
         return result;
     }
 
     @Override
     public double cashThisMonth() {
-        double result=-1;
+    	double result=0;
+        int moth=Calendar.MONTH + 1;
+        
+        for(int i=0;i<orders.getAllOrders().size();i++) {
+        	
+        	int moth1= orders.getAllOrders().get(i).getDate().getMonthValue();
+        	
+        	boolean isPayed = orders.getAllOrders().get(i).isPayed();
+        	
+        	if(moth == moth1 && isPayed) {
+        		
+        		result+= orders.getAllOrders().get(i).getTotal();
+        	}
+        }
         return result;
     }
 
     @Override
     public double cashTotal() {
-        double result=-1;
-        
+        double result=0;
+        for(int i=0;i<orders.getAllOrders().size();i++) {
+        	
+        	result = result + orders.getAllOrders().get(i).getTotal(); 
+        }
         return result;
     }
 
     @Override
     public ArrayList<Order> viewOrdersNotPayed() {
-        ArrayList<Order> result=null;
+        ArrayList<Order> result= new ArrayList<Order>();
+        for(int i=0;i<orders.getAllOrders().size();i++) {
+        	boolean isPayed= orders.getAllOrders().get(i).isPayed();
+		        if(!isPayed) {
+		        	result.add(orders.getAllOrders().get(i));
+		        }
+        }
         return result;
     }
 
     @Override
     public ArrayList<Order> viewOrdersPendingDelivered() {
-        ArrayList<Order> result=null;
+        ArrayList<Order> result=new ArrayList<Order>();
+        for(int i=0;i<orders.getAllOrders().size();i++) {
+        	
+        	boolean delivered= orders.getAllOrders().get(i).isDelivered();
+        	
+        	if(!delivered) {
+        		
+        		result.add(orders.getAllOrders().get(i));
+        	}
+        }
+        
         return result;
     }
 
     @Override
     public void saveAllAndClose() {
+    	
+    	RepositoryClients RC = RepositoryClients.getInstance();
+        RepositoryOrders RO = RepositoryOrders.getInstance();
+        RepositoryUtils tmp = new RepositoryUtils();
+        
+        tmp.saveClients("clients.data", RC);
+        tmp.saveOrders("orders.data", RO);
         
     }
     
