@@ -99,7 +99,21 @@ public class RepositoryUtils {
 		Drink c=new Drink(3,"Pepsi",1.5,true,false,bp);
 		Drink d=new Drink(4,"Sake",1.0,true,true,bp);
 		Drink e=new Drink(5,"Estrella Galicia",1.80,false,true,bp);
-		Drink f=new Drink(6,"Fanta",2.00,false,false,bp);
+		Drink f=new Drink(6,"Fanta Naranja",2.00,false,false,bp);
+		Drink g=new Drink(7,"Fanta Limon", 2.00, false, false, bp);
+		Drink h=new Drink(8, "Nestea", 2.30, false, false, bp);
+		Drink i=new Drink(9, "Tonica Schweeppes", 2.10, false, false, bp);
+		Drink j=new Drink(10, "Tinto de verano", 3.00, false, false, bp);
+		Drink k=new Drink(11, "Cruzcampo", 2.00, false, false, bp);
+		Drink l=new Drink(12, "Zumo", 1.50, false, false, bp);
+		Drink m=new Drink(13, "Mojito", 4.50, false, true, bp);
+		Drink n=new Drink(14, "Barcelo Cola", 5.00, false, true, bp);
+		Drink o=new Drink(15, "Batido chocolate", 2.00, false, false, bp);
+		Drink p=new Drink(16, "Batido vainilla", 2.00, false, false, bp);
+		Drink q=new Drink(17, "Batido fresa", 2.00, false, false, bp);
+		Drink r=new Drink(18, "Agua 1L", 2.00, false, false, bp);
+		Drink s=new Drink(19, "Agua 1.5L", 2.50, false, false, bp);
+		Drink t=new Drink(20, "Aquarious", 2.00, false, false, bp);
 		//int id, String name, doouble cantidad, boolean forceliac, boolean vegan, ArrayList<Integer>
 		Food aa=new Food(1,"Kebab",3.00,false,false,bp);
 		Food bb=new Food(2,"Durum",3.00,false,false,bp);
@@ -112,6 +126,21 @@ public class RepositoryUtils {
 		result.add(d);
 		result.add(e);
 		result.add(f);
+		result.add(g);
+		result.add(h);
+		result.add(i);
+		result.add(j);
+		result.add(k);
+		result.add(l);
+		result.add(m);
+		result.add(n);
+		result.add(o);
+		result.add(p);
+		result.add(q);
+		result.add(r);
+		result.add(s);
+		result.add(t);
+		//
 		result.add(aa);
 		result.add(bb);
 		result.add(cc);

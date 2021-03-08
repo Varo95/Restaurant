@@ -176,6 +176,7 @@ public class MainMenuController implements IMainMenuController {
     @Override
     public double cashTotal() {
         double result=-1;
+        
         return result;
     }
 
