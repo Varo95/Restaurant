@@ -12,10 +12,9 @@ public class Food extends AProduct {
 		super(id,name, price, forCeliac, bundlePack);
 		this.forVegan = forVegan;
 	}
-	public Food() {
-		
-		
-	}
+
+	public Food() {}
+
 	public Food(boolean forVegan) {
 		this.forVegan = forVegan;
 		
@@ -32,7 +31,7 @@ public class Food extends AProduct {
 	public boolean setBundlePack(int id) {
 		boolean result=false;
 		if(id!=0) {
-			
+			//TODO things
 		}
 		return result;
 	}
@@ -42,7 +41,7 @@ public class Food extends AProduct {
 	}
 	@Override
 	public String toString() {
-		return name+" -- "+price+" €";
+		return name+" -- "+price+" â‚¬";
 	}
 	
 }

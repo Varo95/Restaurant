@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public abstract class AProduct implements IProduct {
 
 	protected int id;
-
-
 	protected String name;
 	protected double price;
 	protected boolean forCeliac;

@@ -1,14 +1,25 @@
 package models;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Client extends Person {
-    
+public class Client extends Person implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private ArrayList<String> address;
     private ArrayList<Order> orders;
     private int points;
-        
+
+    public Client(String dni, String nombre, int edad, ArrayList<String> address, ArrayList<Order> orders, int points) {
+        super(dni,nombre,edad);
+        this.address = address;
+        this.orders = orders;
+        this.points = points;
+    }
+
     public ArrayList<String> getAddress() {
         return address;
     }
@@ -27,6 +38,10 @@ public class Client extends Person {
 
     public int getPoints() {
         return points;
+    }
+
+    public void addPoints(int points){
+        this.points+=points;
     }
 
     public void setPoints(int points) {

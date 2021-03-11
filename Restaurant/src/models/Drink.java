@@ -25,12 +25,21 @@ public class Drink extends AProduct{
 		return bundlePack;
 	}
 
+	public boolean setBundlePack(int id) {
+		boolean result=false;
+		if(id!=0) {
+			//TODO things
+		}
+		return result;
+	}
+
 	@Override
 	public boolean getIsForCeliac() {
 		return super.isForCeliac();
 	}
+
 	@Override
 	public String toString() {
-		return name+" -- "+price+ " €";
+		return name+" -- "+price+ " â‚¬";
 	}
 }

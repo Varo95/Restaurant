@@ -18,7 +18,7 @@ public class OrderMenuController implements IOrderMenuController {
 	public boolean addProduct(Order o) {
 		boolean result = false;
 		AProduct aliment = null;
-		// llamar a añadir producto en vista
+		// llamar a aÃ±adir producto en vista
 		for (int i = 0; i < orders.size(); i++) {
 			Line tmp = orders.get(i).getProducts().get(i);
 			if (tmp.getProduct() != aliment) {
@@ -63,8 +63,8 @@ public class OrderMenuController implements IOrderMenuController {
 	@Override
 	public boolean setAddress(String a) {
 		Order order = null;
-		if (order != null) {
-			// aqui se añade lo que se escriba en la vista
+		if (a != null) {
+			// aqui se aÃ±ade lo que se escriba en la vista
 			order.setAddress(a);
 		}
 		return false;

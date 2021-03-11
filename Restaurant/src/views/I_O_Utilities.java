@@ -16,7 +16,6 @@ public class I_O_Utilities {
 			try {
 				result = Integer.parseInt(keyboard.nextLine());
 				valid = true;
-
 			} catch (IllegalStateException ex) {
 				keyboard = new Scanner(System.in);
 				System.out.println("Error in keyboard. Please, try it again: ");
@@ -41,7 +40,6 @@ public class I_O_Utilities {
 			try {
 				result = Float.parseFloat(keyboard.nextLine());
 				valid = true;
-
 			} catch (IllegalStateException ex) {
 				keyboard = new Scanner(System.in);
 				System.out.println("Error in keyboard. Please, try it again: ");
@@ -66,7 +64,6 @@ public class I_O_Utilities {
 			try {
 				result = keyboard.nextLine();
 				valid = true;
-
 			} catch (Exception ex) {
 				System.out.println("Error unknown. Please, try it again: ");
 			}
@@ -80,18 +77,15 @@ public class I_O_Utilities {
 	}
 
 	public static char getChar(String f) {
-
 		String s;
 		do {
 			System.out.print(f + " ");
 			s = I_O_Utilities.getString();
 			if (s.length() != 1) {
-				System.out.println("No válido");
+				System.out.println("Not valid");
 			}
 		} while (s.length() != 1);
-
 		return s.charAt(0);
-
 	}
 
 	public static void clearScreen() {
@@ -102,7 +96,6 @@ public class I_O_Utilities {
 	public static LocalDateTime getDate(String s, String parsed) {
 		boolean result = false;
 		LocalDateTime time = null;
-
 		while (!result) {
 			try {
 				String fecha = I_O_Utilities.getString(s + " [" + parsed + "]") + " 00:00";
@@ -110,7 +103,8 @@ public class I_O_Utilities {
 				time = LocalDateTime.parse(fecha, format);
 				result = true;
 			} catch (Exception ex) {
-				System.out.println("Fecha no correcta");
+				System.out.println("Invalid Date");
+				result=false;
 			}
 		}
 		return time;

@@ -12,7 +12,7 @@ public class Repository {
 	private ArrayList<AProduct> products;
 	private RepositoryUtils RU = new RepositoryUtils();
 
-	public static Repository instance;
+	private static Repository instance;
 
 	public static Repository getInstance() {
 		if (instance == null) {
@@ -22,12 +22,11 @@ public class Repository {
 	}
 
 	private Repository() {
-		this.products = RU.getMenu();
+		this.products = RU.loadMenu();
 	}
 
 	// TODAS LOS PRODUCTOS
 	public ArrayList<AProduct> getAllProducts() {
-
 		return products;
 	}
 
@@ -131,7 +130,7 @@ public class Repository {
 						result.add(products.get(tmp));
 					}
 				}
-
+				//TODO things
 				// for(int j=0;j<products.get(i).)
 			}
 		}
@@ -143,9 +142,7 @@ public class Repository {
 	public ArrayList<AProduct> searchProduct(String name) {
 		ArrayList<AProduct> result = null;
 		for (int i = 0; i < products.size(); i++) {
-
 			if (products.get(i).getName().equals(name)) {
-
 				result.add(products.get(i));
 			}
 		}

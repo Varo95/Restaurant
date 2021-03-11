@@ -1,22 +1,30 @@
 package models;
 
 
-public class Person {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Person implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 6529685098267757690L;
 	//Atributes of Person
 	private String dni;
 	private String name;
 	private int age;
-	
-	
+
+	public Person(String dni, String name, int age) {
+		this.dni = dni;
+		this.name = name;
+		this.age = age;
+	}
+
 	public String getDni() {
 		return dni;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	public int getAge() {
 		return age;
@@ -26,16 +34,13 @@ public class Person {
 		this.dni = dni;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public void setAge(int age) {
 		this.age = age;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -57,7 +62,6 @@ public class Person {
 		return result;
 	}
 
-
 	//ToString
 	@Override
 	public String toString() {
@@ -65,7 +69,5 @@ public class Person {
 				"Name="+name+"\n"+
 				"age="+age+"\n";
 	}
-	
-	
-	
+
 }

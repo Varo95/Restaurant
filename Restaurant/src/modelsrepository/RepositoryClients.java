@@ -1,28 +1,34 @@
 package modelsrepository;
 
+import java.io.Serial;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import models.Client;
+import utilities.RepositoryUtils;
 
-public class RepositoryClients{
+public class RepositoryClients implements Serializable{
 
+	@Serial
+	private static final long serialVersionUID = 6529685098267757690L;
 	private ArrayList<Client> clients;
 	
-	public static RepositoryClients instance;
+	private static RepositoryClients instance;
 
 	public static RepositoryClients getInstance() {
 		if(instance==null) {
-			instance = new RepositoryClients();
+			RepositoryUtils u=new RepositoryUtils();
+			if(u.loadClients("clients.data")!=null){
+				instance=u.loadClients("clients.data");
+			}else{
+				instance = new RepositoryClients();
+			}
 		}
 		return instance;
 	}
 
 	private RepositoryClients() {
 		clients=new ArrayList<Client>();
-	}
-	
-	public RepositoryClients(ArrayList<Client> clients) {
-		this.clients=clients;
 	}
 
 	public ArrayList<Client> getAllClients() {
@@ -42,7 +48,6 @@ public class RepositoryClients{
 		return result;
 	}
 
-	//Devolviendo Strings?
 	public int updateClient(Client c) {
 		int result = 0;
 		if (c != null && c.getDni()!=null && !(c.getDni().isEmpty())) {
@@ -91,7 +96,7 @@ public class RepositoryClients{
 	
 	public boolean addClient(Client c) {
 		boolean result=false;
-		if(c!=null && c.getDni()!=null && c.getDni().isEmpty()) {
+		if(c!=null && c.getDni()!=null && !c.getDni().isEmpty()) {
 			if(!clients.contains(c)) {
 				clients.add(c);
 				result=true;

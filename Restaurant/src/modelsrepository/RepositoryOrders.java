@@ -1,14 +1,18 @@
 package modelsrepository;
+import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.io.Serializable;
 import models.Order;
 
-public class RepositoryOrders {
-	
+public class RepositoryOrders implements Serializable {
+
+	@Serial
+	private static final long serialVersionUID = 6529685098267757690L;
 	private ArrayList<Order> orders;
 	
-	public static RepositoryOrders instance;
+	private static RepositoryOrders instance;
 
 	public static RepositoryOrders getInstance() {
 		if(instance==null) {
@@ -64,18 +68,18 @@ public class RepositoryOrders {
 		
 		return result;
 	}
+
 	public ArrayList<Order> getOrdersNoPayed() {
 		ArrayList<Order> result = null;
 			result = new ArrayList<Order>();
 			for (int i = 0; i < orders.size(); i++) {
 				if(!orders.get(i).isPayed()) {
 					result.add(orders.get(i));
-		
 				}
 			}
-		
 		return result;
 	}
+
 	public double getAllInput(){
 		double result = 0;
 		for (int i = 0; i < orders.size(); i++) {
@@ -85,6 +89,7 @@ public class RepositoryOrders {
 		}
 		return result;
 	}
+
 	public double getInputByDate(LocalDate ini, LocalDate end){
 		double result = 0;
 		LocalDateTime ini1=ini.atStartOfDay();

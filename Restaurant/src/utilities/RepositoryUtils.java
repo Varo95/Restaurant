@@ -1,5 +1,6 @@
 package utilities;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import interfaces.AProduct;
 import modelsrepository.RepositoryClients;
 import modelsrepository.RepositoryOrders;
-import models.Client;
 import models.Drink;
 import models.Food;
 
@@ -19,7 +19,8 @@ public class RepositoryUtils {
 
 	public RepositoryClients loadClients(String path) {
 		RepositoryClients result = null;
-		if (path != null && !path.isEmpty()) {
+		File file = new File("clients.data");
+		if (file.exists() && file.isFile() && path != null && !path.isEmpty()) {
 			FileInputStream f;
 			try {
 				f = new FileInputStream(path);
@@ -44,6 +45,7 @@ public class RepositoryUtils {
 				f = new FileOutputStream(path);
 				ObjectOutputStream of = new ObjectOutputStream(f);
 				of.writeObject(clients);
+				result=true;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -55,7 +57,8 @@ public class RepositoryUtils {
 
 	public RepositoryOrders loadOrders(String path) {
 		RepositoryOrders result = null;
-		if (path != null && !path.isEmpty()) {
+		File file = new File("orders.data");
+		if (file.exists() && file.isFile() && path != null && !path.isEmpty()) {
 			FileInputStream f;
 			try {
 				f = new FileInputStream(path);
@@ -81,6 +84,7 @@ public class RepositoryUtils {
 				f = new FileOutputStream(path);
 				ObjectOutputStream of = new ObjectOutputStream(f);
 				of.writeObject(orders);
+				result=true;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -90,9 +94,9 @@ public class RepositoryUtils {
 		return result;
 	}
 	
-	public ArrayList<AProduct> getMenu(){
+	public ArrayList<AProduct> loadMenu(){
 		ArrayList<AProduct> result=new ArrayList<>();
-		ArrayList<Integer> bp=new ArrayList();
+		ArrayList<Integer> bp=new ArrayList<>();
 		//int id, String name, double cantidad, boolean for celiac, boolean for alcoholic, ArrayList<Integer>
 		Drink a=new Drink(1,"Coca-Cola",1.5,true,false,bp);
 		Drink b=new Drink(2,"Casera",1.5,true,false,bp);
@@ -134,7 +138,7 @@ public class RepositoryUtils {
 		Food qq=new Food(17,"Ensalada de pollo",3.0,true,false,bp);
 		Food rr=new Food(18,"Ensalada de pasta",3.0,true,true,bp);
 		Food ss=new Food(19,"Brochetas de verduras",2.0,true,true,bp);
-		Food tt=new Food(20,"Croquetas de calabacín",4.0,true,true,bp);
+		Food tt=new Food(20,"Croquetas de calabacÃ­n",4.0,true,true,bp);
 		//Anadiendo Drink
 		result.add(a);
 		result.add(b);
