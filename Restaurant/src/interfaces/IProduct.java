@@ -3,11 +3,11 @@ package interfaces;
 import java.util.ArrayList;
 
 public interface IProduct {
-	public ArrayList<Integer> getBundlePack();
+    public ArrayList<Integer> getBundlePack();
 
-	public String getName();
+    public String getName();
 
-	public double getPrice();
+    public double getPrice();
 
-	public boolean getIsForCeliac();
+    public boolean getIsForCeliac();
 }

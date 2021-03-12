@@ -1,45 +1,38 @@
 package models;
 
-import java.util.ArrayList;
-
 import interfaces.AProduct;
 
-public class Drink extends AProduct{
+import java.util.ArrayList;
 
-	private boolean alcoholic;
-	
-	public Drink() {
-		//super();
-	}
-	
-	public Drink(int id,String name, double price, boolean forCeliac, boolean alcoholic, ArrayList<Integer> bundlePack) {
-		super(id, name, price, forCeliac, bundlePack);
-		this.alcoholic = alcoholic;
-	}
+public class Drink extends AProduct {
 
-	public boolean isAlcoholic() {
-		return alcoholic;
-	}
-	
-	public ArrayList<Integer> getBundlePack() {
-		return bundlePack;
-	}
+    private boolean alcoholic;
 
-	public boolean setBundlePack(int id) {
-		boolean result=false;
-		if(id!=0) {
-			//TODO things
-		}
-		return result;
-	}
+    public Drink() {
+        //super();
+    }
 
-	@Override
-	public boolean getIsForCeliac() {
-		return super.isForCeliac();
-	}
+    public Drink(int id, String name, double price, boolean forCeliac, boolean alcoholic, ArrayList<Integer> bundlePack) {
+        super(id, name, price, forCeliac, bundlePack);
+        this.alcoholic = alcoholic;
+    }
 
-	@Override
-	public String toString() {
-		return name+" -- "+price+ " €";
-	}
+    public boolean isAlcoholic() {
+        return alcoholic;
+    }
+
+    public ArrayList<Integer> getBundlePack() {
+        return bundlePack;
+    }
+
+
+    @Override
+    public boolean getIsForCeliac() {
+        return super.isForCeliac();
+    }
+
+    @Override
+    public String toString() {
+        return name + " -- " + price + " $";
+    }
 }

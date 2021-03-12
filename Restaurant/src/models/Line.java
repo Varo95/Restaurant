@@ -35,7 +35,7 @@ public class Line {
 
     @Override
     public String toString() {
-        return  "Product: "+product + " x" + amount+" -- "+ product.getPrice()*amount+" €";
+        return "Product: " + product + " x" + amount + " -- " + product.getPrice() * amount + " €";
     }
 
 }

@@ -3,7 +3,6 @@ package models;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Client extends Person implements Serializable {
 
@@ -13,8 +12,8 @@ public class Client extends Person implements Serializable {
     private ArrayList<Order> orders;
     private int points;
 
-    public Client(String dni, String nombre, int edad, ArrayList<String> address, ArrayList<Order> orders, int points) {
-        super(dni,nombre,edad);
+    public Client(String dni, String name, int age, ArrayList<String> address, ArrayList<Order> orders, int points) {
+        super(dni, name, age);
         this.address = address;
         this.orders = orders;
         this.points = points;
@@ -40,8 +39,8 @@ public class Client extends Person implements Serializable {
         return points;
     }
 
-    public void addPoints(int points){
-        this.points+=points;
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     public void setPoints(int points) {
@@ -50,8 +49,8 @@ public class Client extends Person implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString()+"Client: Address="+address+"\n"+
-                "Orders="+orders+"\n"+
-                "Points="+points+"\n";
+        return super.toString() + "Client: Address=" + address + "\n" +
+                "Orders=" + orders + "\n" +
+                "Points=" + points + "\n";
     }
 }

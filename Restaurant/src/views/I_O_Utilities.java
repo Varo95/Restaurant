@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class I_O_Utilities {
 
 	private static Scanner keyboard = new Scanner(System.in);
-	public static final String defaultDateParsed = "yyyy/MM/dd";
 
 	public static int getInt() {
 		int result = 0;
@@ -28,10 +27,6 @@ public class I_O_Utilities {
 		return result;
 	}
 
-	public static int getInt(String f) {
-		System.out.print(f + " ");
-		return I_O_Utilities.getInt();
-	}
 
 	public static float getFloat() {
 		float result = 0;
@@ -52,10 +47,6 @@ public class I_O_Utilities {
 		return result;
 	}
 
-	public static float getFloat(String f) {
-		System.out.print(f + " ");
-		return I_O_Utilities.getFloat();
-	}
 
 	public static String getString() {
 		String result = "";
@@ -76,16 +67,18 @@ public class I_O_Utilities {
 		return I_O_Utilities.getString();
 	}
 
-	public static char getChar(String f) {
-		String s;
-		do {
-			System.out.print(f + " ");
-			s = I_O_Utilities.getString();
-			if (s.length() != 1) {
-				System.out.println("Not valid");
+	public static char getChar(){
+		char result=' ';
+		do{
+			String s=I_O_Utilities.getString();
+			if(s.length()==1){
+				result=s.charAt(0);
+			}else{
+				result=' ';
+				System.out.println("Please type only one key");
 			}
-		} while (s.length() != 1);
-		return s.charAt(0);
+		}while(result==' ');
+		return result;
 	}
 
 	public static void clearScreen() {

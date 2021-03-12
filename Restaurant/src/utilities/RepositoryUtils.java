@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import interfaces.AProduct;
 import modelsrepository.RepositoryClients;
@@ -140,47 +141,9 @@ public class RepositoryUtils {
 		Food ss=new Food(19,"Brochetas de verduras",2.0,true,true,bp);
 		Food tt=new Food(20,"Croquetas de calabacín",4.0,true,true,bp);
 		//Anadiendo Drink
-		result.add(a);
-		result.add(b);
-		result.add(c);
-		result.add(d);
-		result.add(e);
-		result.add(f);
-		result.add(g);
-		result.add(h);
-		result.add(i);
-		result.add(j);
-		result.add(k);
-		result.add(l);
-		result.add(m);
-		result.add(n);
-		result.add(o);
-		result.add(p);
-		result.add(q);
-		result.add(r);
-		result.add(s);
-		result.add(t);
+		result.addAll(Arrays.asList(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t));
 		//Ananiendo Food
-		result.add(aa);
-		result.add(bb);
-		result.add(cc);
-		result.add(dd);
-		result.add(ee);
-		result.add(ff);
-		result.add(gg);
-		result.add(hh);
-		result.add(ii);
-		result.add(jj);
-		result.add(kk);
-		result.add(ll);
-		result.add(mm);
-		result.add(nn);
-		result.add(oo);
-		result.add(pp);
-		result.add(qq);
-		result.add(rr);
-		result.add(ss);
-		result.add(tt);
+		result.addAll(Arrays.asList(aa, bb, cc, dd, ee, ff, gg, hh, ii, jj, kk, ll, mm, nn, oo, pp, qq, rr, ss, tt));
 		return result;
 	}
 }

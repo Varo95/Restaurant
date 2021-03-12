@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import interfaces.AProduct;
 import interfaces.IOrderMenuController;
+import models.Client;
 import models.Line;
 import models.Order;
-import modelsrepository.Repository;
 import modelsrepository.RepositoryOrders;
 
 public class OrderMenuController implements IOrderMenuController {
@@ -18,7 +18,6 @@ public class OrderMenuController implements IOrderMenuController {
 	public boolean addProduct(Order o) {
 		boolean result = false;
 		AProduct aliment = null;
-		// llamar a añadir producto en vista
 		for (int i = 0; i < orders.size(); i++) {
 			Line tmp = orders.get(i).getProducts().get(i);
 			if (tmp.getProduct() != aliment) {
@@ -35,14 +34,13 @@ public class OrderMenuController implements IOrderMenuController {
 	}
 	@Override
 	//Este metodo edita una linea
-	public boolean editLine(Order o, int n, boolean cant) {
-		boolean result = false;
-		int index = orders.indexOf(o);
-		if (!cant) {
+	public Line editLine(Line e, int ammount, AProduct product) {
+		Line result = null;
+		if (ammount>=1 | product!=null) {
+			result=new Line();
+			//eliminar producto
 			// llamar a vista para cambiar product 
 			//orders.get(index).getProducts().get(n).setProduct();
-		} else {
-			//orders.get(index).getProducts().get(n).setCantidad();
 		}
 		return result;
 	}
@@ -98,6 +96,14 @@ public class OrderMenuController implements IOrderMenuController {
 			order.setPayed(false);
 			orders.add(order);
 			result = true;
+		}
+		return result;
+	}
+
+	public ArrayList<Order> getOrders_byClient(Client c){
+		ArrayList<Order> result=null;
+		if(c!=null && c.getDni()!=null && !c.getDni().isEmpty()){
+			result=RO.getOrdersByClient(c.getDni());
 		}
 		return result;
 	}

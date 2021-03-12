@@ -82,9 +82,9 @@ public class RepositoryOrders implements Serializable {
 
 	public double getAllInput(){
 		double result = 0;
-		for (int i = 0; i < orders.size(); i++) {
-			if(orders.get(i).isPayed()) {
-				result=result+orders.get(i).getTotal();
+		for (Order order : orders) {
+			if (order.isPayed()) {
+				result = result + order.getTotal();
 			}
 		}
 		return result;
@@ -94,9 +94,9 @@ public class RepositoryOrders implements Serializable {
 		double result = 0;
 		LocalDateTime ini1=ini.atStartOfDay();
 		LocalDateTime end1=end.atStartOfDay();
-		for (int i = 0; i < orders.size(); i++) {
-			if (orders.get(i).getDate().isBefore(ini1) && orders.get(i).getDate().isAfter(end1)) {
-				result=result+orders.get(i).getTotal();
+		for (Order order : orders) {
+			if (order.getDate().isBefore(ini1) && order.getDate().isAfter(end1)) {
+				result = result + order.getTotal();
 			}
 		}
 		return result;
