@@ -15,7 +15,13 @@ public class MainMenuController implements IMainMenuController {
 
     RepositoryOrders orders = RepositoryOrders.getInstance();
     RepositoryClients clients = RepositoryClients.getInstance();
-
+    /**
+     * Añadir un cliente.
+     * 
+     * @param c	Cliente a añadir.
+     * @return True si se ha añadido, false si no.
+     * 
+     */
     public boolean addClient(Client c) {
         boolean result = false;
         if (c != null) {
@@ -24,7 +30,12 @@ public class MainMenuController implements IMainMenuController {
         }
         return result;
     }
-
+    /**
+     * Editar cliente.
+     * @param id El identificador del cliente.
+     * @param c El cliente a editar.
+     * @return True si se ha editado, false si no.
+     */
     public boolean editClient(int id, Client c) {
         boolean result = false;
         if (id > -1 && c != null && clients.getAllClients().get(id) != null) {
@@ -50,7 +61,11 @@ public class MainMenuController implements IMainMenuController {
         }
         return result;
     }
-
+    /**
+     * Borrar cliente.
+     * @param id El identificador del cliente.
+     * @return True si se ha eliminado, false si no.
+     */
     public boolean removeClient(int id) {
         boolean result = false;
         if (id > -1 && clients.getAllClients().get(id) != null) {
@@ -59,8 +74,16 @@ public class MainMenuController implements IMainMenuController {
         }
         return result;
     }
+    
+   
 
     @Override
+    /**
+     * Nueva orden.
+     * @param c Recibe un cliente.
+     * @param o Recibe una orden.
+     * @return True si se ha creado la orden , false si no.
+     */
     public boolean newOrder(Client c, Order o) {
         boolean result = false;
         if (o != null && o.getClient() == null) {
@@ -73,6 +96,12 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Cambiar orden.
+     * @param c Recibe un cliente.
+     * @param id Redibe un identificador de order.
+     * @return True si se ha cambiado la orden, false si no.
+     */
     public boolean changeOrder(Client c, int id) {
         boolean result = false;
         if (c != null && id > -1 && orders.getAllOrders().get(id) != null) {
@@ -84,6 +113,12 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Cambiar orden.
+     * @param d Recibe la hora local.
+     * @param id Recibe un identificador de orders.
+     * @return True si se ha cambiado la orden, false si no.
+     */
     public boolean changeOrder(LocalDateTime d, int id) {
         boolean result = false;
         if (d != null && id > -1) {
@@ -94,6 +129,13 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Cambiar orden.
+     * @param d Recibe la hora local.
+     * @param id Recibe un identificador de orders.
+     * @param c Recibe un cliente.
+     * @return True si se ha cambiado la orden, false si no.
+     */
     public boolean changeOrder(Client c, LocalDateTime d, int id) {
         boolean result = false;
         if (c != null && d != null && id > -1) {
@@ -105,6 +147,12 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Borrar orden.
+     *@param c Recibe un cliente.
+     *@param id Recibe un identificador de orders.
+     *@return True si se ha eliminador la orden, false si no. 
+     */
     public boolean deleteOrder(Client c, int id) {
         boolean result = false;
         if (c != null) {
@@ -119,6 +167,12 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Borrar orden.
+     * @param id Recibe un identificador de orders.
+     * @param d Recibe la hora local.
+     * @return True si se ha eliminador la orden, false si no. 
+     */
     public boolean deleteOrder(LocalDateTime d, int id) {
         boolean result = false;
         if (d != null) {
@@ -133,6 +187,13 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Borrar orden.
+     * @param id Recibe un identificador de orders.
+     * @param d Recibe la hora local.
+     * @param c Recibe un cliente.
+     * @return True si se ha eliminador la orden, false si no.
+     */
     public boolean deleteOrder(Client c, LocalDateTime d, int id) {
         boolean result = false;
         if (c != null && d != null) {
@@ -147,6 +208,10 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Dinero recaudado en el dia.
+     * @return Devuelbe un el dinero recaudado en el dia.
+     */
     public double cashToDay() {
         double result = 0;
         int day = Calendar.DAY_OF_WEEK_IN_MONTH;
@@ -161,6 +226,10 @@ public class MainMenuController implements IMainMenuController {
     }
 
     @Override
+    /**
+     * Dinero recaudado en el mes
+     * @return Devuelbe un el dinero recaudado en el mes.
+     */
     public double cashThisMonth() {
         double result = 0;
         int moth = Calendar.MONTH + 1;
@@ -173,12 +242,20 @@ public class MainMenuController implements IMainMenuController {
         }
         return result;
     }
-
+    /*
+     * Dinero total recaudado.
+     * @return Dinero total recaudado
+     */
     @Override
+
     public double cashTotal() {
         return orders.getAllInput();
     }
 
+    /**
+     * Array de los pedidos no pagados.
+     * @return Array de los pedidos.
+     */
     @Override
     public ArrayList<Order> viewOrdersNotPayed() {
         ArrayList<Order> result = new ArrayList<Order>();
@@ -191,6 +268,10 @@ public class MainMenuController implements IMainMenuController {
         return result;
     }
 
+    /**
+     * Array de los pedidos pendientes de entregar.
+     * @return Array de los pedidos.
+     */
     @Override
     public ArrayList<Order> viewOrdersPendingDelivered() {
         ArrayList<Order> result = new ArrayList<Order>();
@@ -202,7 +283,9 @@ public class MainMenuController implements IMainMenuController {
         }
         return result;
     }
-
+    /**
+     * Este metodo guarda todo antes de salir de la aplicacion,
+     */
     @Override
     public void saveAllAndClose() {
         RepositoryUtils tmp = new RepositoryUtils();
