@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MenuViews {
 
@@ -186,8 +185,8 @@ public class MenuViews {
             } while (!exit_edit_line);
         }
         double total_order = 0;
-        for (int i = 0; i < order_lines.size(); i++) {
-            total_order += (order_lines.get(i).getProduct().getPrice() * order_lines.get(i).getAmount());
+        for (Line order_line : order_lines) {
+            total_order += (order_line.getProduct().getPrice() * order_line.getAmount());
         }
         System.out.println("Please select the client address to deliver the order");
         for (int i = 0; i < c.getAddress().size(); i++) {
@@ -220,7 +219,6 @@ public class MenuViews {
         int points = I_O_Utilities.getInt();
         c.addPoints(points);
         System.out.println("Points where added successfully");
-        Calendar z = Calendar.getInstance();
         LocalDateTime order_date = id.atTime(ZonedDateTime.now().getHour(), ZonedDateTime.now().getMinute());
         result = new Order(c, order_lines, total_order, order_date, address_order, order_delivered, order_payed);
         System.out.println("Order with date and time at: " + order_date.toString());
@@ -603,6 +601,7 @@ public class MenuViews {
                             }}, new ArrayList<>(), 0);
                             System.out.println("A generic client was selected");
                             case1_exit = true;
+                            exit = true;
                         } else {
                             System.out.println("Number doesn't match with a number of list please retry again");
                             case1_exit = false;
@@ -637,6 +636,7 @@ public class MenuViews {
                                 }}, new ArrayList<>(), 0);
                                 System.out.println("A generic client was selected");
                                 case2_exit = true;
+                                exit = true;
                             } else {
                                 System.out.println("Number doesn't match with a number of list please retry again");
                                 case2_exit = false;
@@ -660,6 +660,7 @@ public class MenuViews {
                             }}, new ArrayList<>(), 0);
                             System.out.println("A generic client was selected");
                             case3_exit = true;
+                            exit = true;
                         }else{
                             result = RC.searchClientByDni(dni);
                             System.out.println("Client " + result.toString() + " was selected");
@@ -672,7 +673,7 @@ public class MenuViews {
                     System.out.println("Please try again with another option");
                     exit = false;
             }
-        } while (!exit);
+        } while (!exit && result!=null);
         return result;
     }
 
