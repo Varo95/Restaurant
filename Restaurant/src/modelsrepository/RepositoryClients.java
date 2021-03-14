@@ -30,11 +30,18 @@ public class RepositoryClients implements Serializable {
     private RepositoryClients() {
         clients = new ArrayList<Client>();
     }
-
+/**
+ * 
+ * @return Todos los clientes
+ */
     public ArrayList<Client> getAllClients() {
         return this.clients;
     }
-
+/**
+ * Funcion que devuelve un cliente el cual buscamos por el nombre
+ * @param name nombre cliente
+ * @return cliente
+ */
     public ArrayList<Client> searchClientByName(String name) {
         ArrayList<Client> result = null;
         if (name != null && !(name.isEmpty())) {
@@ -52,38 +59,11 @@ public class RepositoryClients implements Serializable {
         return result;
     }
 
-    public int updateClient(Client c) {
-        int result = 0;
-        if (c != null && c.getDni() != null && !(c.getDni().isEmpty())) {
-            Client tmp = searchClientByDni(c.getDni());
-            if (c.getAge() > 0) {
-                tmp.setAge(c.getAge());
-                result++;
-            }
-            if (c.getName() != null && !(c.getName().isEmpty())) {
-                tmp.setName(c.getName());
-                result++;
-            }
-            if (c.getDni() != null && !(c.getDni().isEmpty())) {
-                tmp.setDni(c.getDni());
-                result++;
-            }
-            if (c.getOrders() != null && !(c.getOrders().isEmpty())) {
-                tmp.setOrders(c.getOrders());
-                result++;
-            }
-            if (c.getAddress() != null && !(c.getAddress().isEmpty())) {
-                tmp.setAddress(c.getAddress());
-                result++;
-            }
-            if (c.getPoints() > 0) {
-                tmp.setPoints(c.getPoints());
-                result++;
-            }
-        }
-        return result;
-    }
-
+  /**
+   * Función que devuelve un cliente el cual buscamos por el dni
+   * @param dni cliente
+   * @return cliente
+   */
     public Client searchClientByDni(String dni) {
         Client result = null;
         if (dni != null && !(dni.isEmpty())) {
@@ -97,7 +77,11 @@ public class RepositoryClients implements Serializable {
         }
         return result;
     }
-
+/**
+ * Función que devuelve un true o un folse si a o no aniadido un cliente
+ * @param c cliente
+ * @return true aniadido false no aniadido
+ */
     public boolean addClient(Client c) {
         boolean result = false;
         if (c != null && c.getDni() != null && !c.getDni().isEmpty()) {
@@ -108,7 +92,11 @@ public class RepositoryClients implements Serializable {
         }
         return result;
     }
-
+/**
+ * Función que devuelve un true o un folse si a o no eliminado un cliente
+ * @param dni cliente
+ * @return true eliminado false no eliminado
+ */
     public boolean deleteClient(String dni) {
         boolean result = false;
         if (dni != null && !(dni.isEmpty())) {
