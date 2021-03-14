@@ -10,6 +10,8 @@ import modelsrepository.RepositoryClients;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -123,7 +125,7 @@ public class MenuViews {
             char choice3 = I_O_Utilities.getChar();
             if (choice3 == 'Y' | choice3 == 'y') {
                 exit = true;
-            }else{
+            } else {
                 exit = false;
             }
         } while (exit);
@@ -144,7 +146,7 @@ public class MenuViews {
                 int onselect = I_O_Utilities.getInt();
                 boolean wrong_edit = false;
                 do {
-                    if (onselect>-1 && onselect<order_lines.size()) {
+                    if (onselect > -1 && onselect < order_lines.size()) {
                         System.out.println(order_lines.get(onselect).toString());
                         System.out.println("Would you like to change the ammount or the product?");
                         System.out.println("a=ammount, p=product, another key will exit editing");
@@ -177,51 +179,51 @@ public class MenuViews {
                 System.out.println("y=yes, another key to refuse");
                 char choice_3 = I_O_Utilities.getChar();
                 if (choice_3 == 'Y' | choice_3 == 'y') {
-                    exit_edit_line = true;
-                }else{
                     exit_edit_line = false;
+                } else {
+                    exit_edit_line = true;
                 }
             } while (!exit_edit_line);
         }
-        double total_order=0;
-        for(int i=0;i<order_lines.size();i++){
-            total_order+=(order_lines.get(i).getProduct().getPrice()*order_lines.get(i).getAmount());
+        double total_order = 0;
+        for (int i = 0; i < order_lines.size(); i++) {
+            total_order += (order_lines.get(i).getProduct().getPrice() * order_lines.get(i).getAmount());
         }
         System.out.println("Please select the client address to deliver the order");
-        for(int i=0;i<c.getAddress().size();i++){
-            System.out.println(i+"."+c.getAddress().get(i));
+        for (int i = 0; i < c.getAddress().size(); i++) {
+            System.out.println(i + "." + c.getAddress().get(i));
         }
-        int address_order_index=I_O_Utilities.getInt();
-        String address_order=null;
-        if(address_order_index>-1 && address_order_index<c.getAddress().size()){
-            address_order=c.getAddress().get(address_order_index);
-        }else{
+        int address_order_index = I_O_Utilities.getInt();
+        String address_order = null;
+        if (address_order_index > -1 && address_order_index < c.getAddress().size()) {
+            address_order = c.getAddress().get(address_order_index);
+        } else {
             System.out.println("Address not valid! Address is set to Unknow! Please edit the order before delivering");
-            address_order="Unknow";
+            address_order = "Unknow";
         }
         System.out.println("Is the order already delivered?");
         System.out.println("Press y to yes, otherwhise, no");
-        char delivered_order=I_O_Utilities.getChar();
-        boolean order_delivered=false;
-        if(delivered_order=='Y' | delivered_order=='y'){
-            order_delivered=true;
+        char delivered_order = I_O_Utilities.getChar();
+        boolean order_delivered = false;
+        if (delivered_order == 'Y' | delivered_order == 'y') {
+            order_delivered = true;
         }
         System.out.println("Is the order already payed?");
         System.out.println("Press y to yes, otherwhise, no");
-        char payed_order=I_O_Utilities.getChar();
-        boolean order_payed=false;
-        if(delivered_order=='Y' | delivered_order=='y'){
-            order_payed=true;
+        char payed_order = I_O_Utilities.getChar();
+        boolean order_payed = false;
+        if (delivered_order == 'Y' | delivered_order == 'y') {
+            order_payed = true;
         }
         System.out.println("How many points will add this order to the Client?");
         System.out.println("Please type the amount");
-        int points=I_O_Utilities.getInt();
+        int points = I_O_Utilities.getInt();
         c.addPoints(points);
         System.out.println("Points where added successfully");
-        Calendar z=Calendar.getInstance();
-        LocalDateTime order_date=id.atTime(ZonedDateTime.now().getHour(), ZonedDateTime.now().getMinute());
-        result=new Order(c,order_lines,total_order,order_date,address_order,order_delivered,order_payed);
-        System.out.println("Order with date and time at: "+order_date.toString());
+        Calendar z = Calendar.getInstance();
+        LocalDateTime order_date = id.atTime(ZonedDateTime.now().getHour(), ZonedDateTime.now().getMinute());
+        result = new Order(c, order_lines, total_order, order_date, address_order, order_delivered, order_payed);
+        System.out.println("Order with date and time at: " + order_date.toString());
         OC.addNewOrder(result);
         System.out.println("Order successfully added");
         System.out.println("Press any key to continue...");
@@ -379,7 +381,32 @@ public class MenuViews {
                     I_O_Utilities.getString();
                     break;
                 case 5:
-                    System.out.println("Press");
+                    System.out.println("Searching clients by...");
+                    System.out.println("1. By DNI");
+                    System.out.println("2. By name");
+                    System.out.println("3. Exit");
+                    int number=I_O_Utilities.getInt();
+                    if(number==1){
+                        System.out.println("Please enter a DNI");
+                        String dni_l=I_O_Utilities.getString();
+                        if(RC.searchClientByDni(dni_l)!=null){
+                            System.out.println(RC.searchClientByDni(dni_l).toString());
+                        }else{
+                            System.out.println("Client not found, please check out Client database");
+                        }
+                    }else if(number==2){
+                        System.out.println("Please enter a name to search");
+                        String name_l=I_O_Utilities.getString();
+                        if(RC.searchClientByName(name_l)!=null && RC.searchClientByName(name_l).size()>=1){
+                            for (int i=0;i<RC.searchClientByName(name_l).size();i++){
+                                System.out.println(i+"."+RC.searchClientByName(name_l).get(i).toString());
+                            }
+                        }else{
+                            System.out.println("Clients not found, please check out Client database");
+                        }
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 6:
                     mg_cli = true;
@@ -392,14 +419,21 @@ public class MenuViews {
     public void ordersManager() {
         int selected = 0;
         do {
+            System.out.println("0. List all orders");
             System.out.println("1. Add new Order selecting client");
             System.out.println("2. Edit orders from client");
-            System.out.println("3. Remove orders from client");
-            System.out.println("4. Save paid Orders");
-            System.out.println("5. Save NOT paid Orders");
-            System.out.println("6. Exit");
+            System.out.println("3. Save paid Orders");
+            System.out.println("4. Save NOT paid Orders");
+            System.out.println("5. Exit");
             selected = I_O_Utilities.getInt();
             switch (selected) {
+                case 0:
+                    for (int i=0;i<OC.getAllOrders().size();i++){
+                        System.out.println(i+"."+OC.getAllOrders().get(i).toString());
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
+                    break;
                 case 1:
                     Client a = selectClient();
                     addOrderView(a, LocalDate.now());
@@ -409,15 +443,26 @@ public class MenuViews {
                     ordersManager(b);
                     break;
                 case 3:
-                    listMenu();
+                    if (OC.savePaid()) {
+                        System.out.println("Orders saved properly");
+                    } else {
+                        System.out.println("Orders not saved. Somethign happens");
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 4:
-                    break;
-                case 5:
+                    if (OC.saveNotPaid()) {
+                        System.out.println("Orders saved properly");
+                    } else {
+                        System.out.println("Orders not saved. Somethign happens");
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 default:
             }
-        } while (selected != 6);
+        } while (selected != 5);
 
     }
 
@@ -429,8 +474,8 @@ public class MenuViews {
         System.out.println("3.All Celiac products");
         System.out.println("4.ALL products");
         int choice = I_O_Utilities.getInt();
-        char choice_food = ' ';
-        char choice_drinks = ' ';
+        char choice_food = ' ';
+        char choice_drinks = ' ';
         switch (choice) {
             case 1:
                 System.out.println("¿Show only For Vegan food?");
@@ -676,6 +721,7 @@ public class MenuViews {
             System.out.println("5. Change address");
             System.out.println("6. Change delivered status");
             System.out.println("7. Change payed status");
+            System.out.println("8. Exit");
             option = I_O_Utilities.getInt();
             switch (option) {
                 case 1:
@@ -724,27 +770,67 @@ public class MenuViews {
                     I_O_Utilities.getString();
                     break;
                 case 3:
-                    System.out.println("The total price of the order is "+o.getTotal()+" $");
+                    System.out.println("The total price of the order is " + o.getTotal() + " $");
                     System.out.println("You want to edit it? Press Y to edit");
                     char choice3 = I_O_Utilities.getChar();
                     if (choice3 == 'Y' | choice3 == 'y') {
                         System.out.println("Put the expected price below: ");
-                        double cant=I_O_Utilities.getFloat();
+                        double cant = I_O_Utilities.getFloat();
                         o.setTotal(cant);
-                        System.out.println("Total was changed to: "+o.getTotal());
-                    }else{
+                        System.out.println("Total was changed to: " + o.getTotal());
+                    } else {
                         System.out.println("The total order doesn't change");
                     }
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 4:
+                    boolean exit_case4=false;
+                    do{
+                        System.out.println("Please enter the new date of the order ");
+                        System.out.println("For example: 2011-12-03T10:15:30+01:00[Europe/Paris]");
+                        String new_date=I_O_Utilities.getString();
+                        try{
+                            o.setDate(LocalDateTime.parse(new_date, DateTimeFormatter.ISO_ZONED_DATE_TIME));
+                            exit_case4=true;
+                        }catch (DateTimeParseException e){
+                            System.out.println("Please type again a date");
+                            exit_case4=false;
+                        }
+                    }while(exit_case4);
+                    System.out.println("Date successfully changed!");
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 5:
+                    System.out.println("Type the new address");
+                    String new_address=I_O_Utilities.getString();
+                    o.setAddress(new_address);
+                    System.out.println("Address changed successfully");
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 6:
+                    if(o.isPayed()){
+                        o.setPayed(false);
+                        System.out.println("Order marked as not payed");
+                    }else{
+                        o.setPayed(true);
+                        System.out.println("Order marked as payed");
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 7:
+                    if(o.isDelivered()){
+                        o.setDelivered(false);
+                        System.out.println("Order marked as not delivered");
+                    }else{
+                        o.setDelivered(true);
+                        System.out.println("Order marked as delivered");
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 default:
             }

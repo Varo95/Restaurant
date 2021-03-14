@@ -16,6 +16,9 @@ public class OrderMenuController implements IOrderMenuController {
     private ArrayList<Order> orders = RO.getAllOrders();
     RepositoryUtils RU=new RepositoryUtils();
 
+    public ArrayList<Order> getAllOrders(){
+        return this.orders;
+    }
     public boolean addNewOrder(Order o){
         boolean result=false;
         if(o!=null && o.getClient()!=null && !o.getClient().toString().isEmpty()){
