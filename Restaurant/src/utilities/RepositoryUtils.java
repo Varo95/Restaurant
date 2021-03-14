@@ -18,7 +18,11 @@ import models.Drink;
 import models.Food;
 
 public class RepositoryUtils {
-
+	/**
+	 * Carga los clientes desde un archivo
+	 * @param path archivo a cargar
+	 * @return repositorio cargado desde el archivo
+	 */
 	public RepositoryClients loadClients(String path) {
 		RepositoryClients result = null;
 		File file = new File("clients.data");
@@ -39,6 +43,12 @@ public class RepositoryUtils {
 		return result;
 	}
 
+	/**
+	 * Este método guarda un repositorio de clientes
+	 * @param path archivo a guardar
+	 * @param clients Repositorio a guardar
+	 * @return true si se ha podido, false en caso contrario
+	 */
 	public boolean saveClients(String path, RepositoryClients clients) {
 		boolean result = false;
 		if (path != null && !path.isEmpty()) {
@@ -56,7 +66,11 @@ public class RepositoryUtils {
 		}
 		return result;
 	}
-
+	/**
+	 * Carga los pedidos desde un archivo
+	 * @param path archivo a cargar
+	 * @return repositorio cargado desde el archivo
+	 */
 	public RepositoryOrders loadOrders(String path) {
 		RepositoryOrders result = null;
 		File file = new File("orders.data");
@@ -78,6 +92,12 @@ public class RepositoryUtils {
 
 	}
 
+	/**
+	 * Este método guarda un repositorio de pedidos
+	 * @param path archivo a guardar
+	 * @param orders repositorio de pedidos a guardar
+	 * @return true si ha sido exitoso, false si no se ha podido guardar.
+	 */
 	public boolean saveOrders(String path, RepositoryOrders orders) {
 		boolean result = false;
 		if (path != null && !path.isEmpty()) {
@@ -96,6 +116,12 @@ public class RepositoryUtils {
 		return result;
 	}
 
+	/**
+	 * Este método sirve para guardar un array de pedidos
+	 * @param path archivo a guardar
+	 * @param orders pedidos a almacenar
+	 * @return true si ha podido, false en caso contrario.
+	 */
 	public boolean saveOrders(String path, ArrayList<Order> orders){
 		boolean result=false;
 		if (path != null && !path.isEmpty()) {
@@ -113,7 +139,11 @@ public class RepositoryUtils {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Este método carga la lista del menú
+	 * @return devuelve la lista completa
+	 */
 	public ArrayList<AProduct> loadMenu(){
 		ArrayList<AProduct> result=new ArrayList<>();
 		ArrayList<Integer> bp=new ArrayList<>();

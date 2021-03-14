@@ -1,13 +1,15 @@
 package views;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class I_O_Utilities {
 
 	private static Scanner keyboard = new Scanner(System.in);
 
+	/**
+	 * Este metodo sirve para recoger un entero leido por teclado
+	 * @return entero recogido
+	 */
 	public static int getInt() {
 		int result = 0;
 		boolean valid = false;
@@ -27,7 +29,10 @@ public class I_O_Utilities {
 		return result;
 	}
 
-
+	/**
+	 * Este método sirve para recoger un float del teclado
+	 * @return float recogido
+	 */
 	public static float getFloat() {
 		float result = 0;
 		boolean valid = false;
@@ -47,7 +52,10 @@ public class I_O_Utilities {
 		return result;
 	}
 
-
+	/**
+	 * Este método sirve para devolver un String recogido por teclado
+	 * @return String recogido
+	 */
 	public static String getString() {
 		String result = "";
 		boolean valid = false;
@@ -67,6 +75,10 @@ public class I_O_Utilities {
 		return I_O_Utilities.getString();
 	}
 
+	/**
+	 * Este método sirve para devolver un Char
+	 * @return Char recogido
+	 */
 	public static char getChar(){
 		char result=' ';
 		do{
@@ -79,28 +91,6 @@ public class I_O_Utilities {
 			}
 		}while(result==' ');
 		return result;
-	}
-
-	public static void clearScreen() {
-		System.out.print("\n\n\n\n\n\n\n\n\n\n");
-		System.out.flush();
-	}
-
-	public static LocalDateTime getDate(String s, String parsed) {
-		boolean result = false;
-		LocalDateTime time = null;
-		while (!result) {
-			try {
-				String fecha = I_O_Utilities.getString(s + " [" + parsed + "]") + " 00:00";
-				DateTimeFormatter format = DateTimeFormatter.ofPattern(parsed + " HH:mm");
-				time = LocalDateTime.parse(fecha, format);
-				result = true;
-			} catch (Exception ex) {
-				System.out.println("Invalid Date");
-				result=false;
-			}
-		}
-		return time;
 	}
 
 }
