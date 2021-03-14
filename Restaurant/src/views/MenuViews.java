@@ -9,14 +9,16 @@ import modelsrepository.RepositoryClients;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MenuViews {
 
     RepositoryClients RC = RepositoryClients.getInstance();
     Repository R = Repository.getInstance();
-    MainMenuController MC= new MainMenuController();
-    OrderMenuController OC= new OrderMenuController();
+    MainMenuController MC = new MainMenuController();
+    OrderMenuController OC = new OrderMenuController();
 
     public void mainmenu() {
         System.out.println("Loading previus data...");
@@ -57,7 +59,7 @@ public class MenuViews {
         } while (selected != 4);
     }
 
-    public Order addOrderView(Client c, LocalDate id) {
+    public void addOrderView(Client c, LocalDate id) {
         Order result = null;
         //pidiendo datos
         boolean exit = false;
@@ -121,6 +123,8 @@ public class MenuViews {
             char choice3 = I_O_Utilities.getChar();
             if (choice3 == 'Y' | choice3 == 'y') {
                 exit = true;
+            }else{
+                exit = false;
             }
         } while (exit);
         for (Line order_line : order_lines) {
@@ -136,24 +140,29 @@ public class MenuViews {
                 for (int i = 0; i < order_lines.size(); i++) {
                     System.out.println(i + "." + order_lines.get(i).toString());
                 }
-                System.out.println("Please type the line number to edit");
+                System.out.println("Please type the line number to edit o type negative numbers to exit");
                 int onselect = I_O_Utilities.getInt();
                 boolean wrong_edit = false;
                 do {
-                    if (order_lines.contains(order_lines.get(onselect))) {
+                    if (onselect>-1 && onselect<order_lines.size()) {
                         System.out.println(order_lines.get(onselect).toString());
                         System.out.println("Would you like to change the ammount or the product?");
                         System.out.println("a=ammount, p=product, another key will exit editing");
                         char edit_line = I_O_Utilities.getChar();
                         if (edit_line == 'A' | edit_line == 'a') {
-                            //edit line ammount
                             System.out.println("Please type the new amount of the product");
-                            int ammount=I_O_Utilities.getInt();
-                            //OC.editLine()
+                            int ammount = I_O_Utilities.getInt();
+                            if (OC.editLine(order_lines.get(onselect), ammount, null)) {
+                                System.out.println("Ammount succesfully changed");
+                            } else {
+                                System.out.println("Something happens, amount doesn't change");
+                            }
                         } else if (edit_line == 'P' | edit_line == 'p') {
-                            //edit line product
-
-                            //OC.editLine()
+                            if (OC.editLine(order_lines.get(onselect), -1, selectProduct())) {
+                                System.out.println("Product was changed!");
+                            } else {
+                                System.out.println("Product wasn't changed");
+                            }
                         } else {
                             wrong_edit = true;
                         }
@@ -161,29 +170,62 @@ public class MenuViews {
                         System.out.println("Error that number doesn't match with a line number");
                         System.out.println("Please enter a valid line o press n to exit edit line");
                         char edit_line_out = I_O_Utilities.getChar();
-                        if (edit_line_out == 'N' | edit_line_out == 'n') {
-                            wrong_edit = false;
-                        } else {
-                            wrong_edit = true;
-                        }
+                        wrong_edit = !(edit_line_out == 'N' | edit_line_out == 'n');
                     }
                 } while (wrong_edit);
                 System.out.println("Would you like to edit more lines?");
                 System.out.println("y=yes, another key to refuse");
                 char choice_3 = I_O_Utilities.getChar();
                 if (choice_3 == 'Y' | choice_3 == 'y') {
-                    exit_edit_line = false;
-                } else {
                     exit_edit_line = true;
+                }else{
+                    exit_edit_line = false;
                 }
             } while (!exit_edit_line);
-        } else {
-
         }
-
-        //rellenar datos de la orden
-        //devuelve el order creado
-        return result;
+        double total_order=0;
+        for(int i=0;i<order_lines.size();i++){
+            total_order+=(order_lines.get(i).getProduct().getPrice()*order_lines.get(i).getAmount());
+        }
+        System.out.println("Please select the client address to deliver the order");
+        for(int i=0;i<c.getAddress().size();i++){
+            System.out.println(i+"."+c.getAddress().get(i));
+        }
+        int address_order_index=I_O_Utilities.getInt();
+        String address_order=null;
+        if(address_order_index>-1 && address_order_index<c.getAddress().size()){
+            address_order=c.getAddress().get(address_order_index);
+        }else{
+            System.out.println("Address not valid! Address is set to Unknow! Please edit the order before delivering");
+            address_order="Unknow";
+        }
+        System.out.println("Is the order already delivered?");
+        System.out.println("Press y to yes, otherwhise, no");
+        char delivered_order=I_O_Utilities.getChar();
+        boolean order_delivered=false;
+        if(delivered_order=='Y' | delivered_order=='y'){
+            order_delivered=true;
+        }
+        System.out.println("Is the order already payed?");
+        System.out.println("Press y to yes, otherwhise, no");
+        char payed_order=I_O_Utilities.getChar();
+        boolean order_payed=false;
+        if(delivered_order=='Y' | delivered_order=='y'){
+            order_payed=true;
+        }
+        System.out.println("How many points will add this order to the Client?");
+        System.out.println("Please type the amount");
+        int points=I_O_Utilities.getInt();
+        c.addPoints(points);
+        System.out.println("Points where added successfully");
+        Calendar z=Calendar.getInstance();
+        LocalDateTime order_date=id.atTime(ZonedDateTime.now().getHour(), ZonedDateTime.now().getMinute());
+        result=new Order(c,order_lines,total_order,order_date,address_order,order_delivered,order_payed);
+        System.out.println("Order with date and time at: "+order_date.toString());
+        OC.addNewOrder(result);
+        System.out.println("Order successfully added");
+        System.out.println("Press any key to continue...");
+        I_O_Utilities.getString();
     }
 
     public void clientsManager() {
@@ -195,8 +237,8 @@ public class MenuViews {
             System.out.println("4. Remove Client");
             System.out.println("5. Search Client");
             System.out.println("6. Exit from Client Manager");
-            int choice=I_O_Utilities.getInt();
-            switch (choice){
+            int choice = I_O_Utilities.getInt();
+            switch (choice) {
                 case 1:
                     System.out.println("Listing all clients");
                     listClients();
@@ -206,24 +248,25 @@ public class MenuViews {
                 case 2:
                     System.out.println("Adding new client");
                     System.out.println("Please type the --DNI-- of the new client");
-                    String dni=I_O_Utilities.getString();
+                    String dni = I_O_Utilities.getString();
                     System.out.println("Please type the --Name-- of the new client");
-                    String name=I_O_Utilities.getString();
+                    String name = I_O_Utilities.getString();
                     System.out.println("Please type the --Age-- of the new client");
-                    int age=I_O_Utilities.getInt();
-                    ArrayList<String> address=new ArrayList<String>();
+                    int age = I_O_Utilities.getInt();
+                    ArrayList<String> address = new ArrayList<String>();
                     System.out.println("How many address got the client? Please type a number");
-                    int n_address=I_O_Utilities.getInt();
-                    for(int i=0;i<n_address;i++){
+                    int n_address = I_O_Utilities.getInt();
+                    for (int i = 0; i < n_address; i++) {
                         System.out.println("Please type the --Address-- of the new client");
-                        String tmp=I_O_Utilities.getString();
+                        String tmp = I_O_Utilities.getString();
                         address.add(tmp);
                     }
                     System.out.println("Please type the --Points-- of the new client");
-                    int points=I_O_Utilities.getInt();
-                    Client c=new Client(dni,name,age,address,new ArrayList<Order>(),points);
-                    if(MC.addClient(c)){
-                    System.out.println("Client "+c.toString()+" was added successfully");}
+                    int points = I_O_Utilities.getInt();
+                    Client c = new Client(dni, name, age, address, new ArrayList<Order>(), points);
+                    if (MC.addClient(c)) {
+                        System.out.println("Client " + c.toString() + " was added successfully");
+                    }
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
@@ -232,108 +275,115 @@ public class MenuViews {
                     listClients();
                     System.out.println("Please type the number showed before the client to select it...");
                     System.out.println("Or type -1 to cancel edit client");
-                    int selected1=I_O_Utilities.getInt();
-                    boolean exit1=false;
-                    do{
-                    if(selected1==-1){
-                        exit1=true;
-                    }else{
-                        if (RC.getAllClients().get(selected1)!=null) {
-                            System.out.println(RC.getAllClients().get(selected1).toString());
-                            System.out.println("1. Edit DNI");
-                            System.out.println("2. Edit Name");
-                            System.out.println("3. Edit Age");
-                            System.out.println("4. Edit Address");
-                            System.out.println("5. Edit Orders");
-                            System.out.println("6. Edit Points");
-                            System.out.println("7. Exit");
-                            Client edited_client=null;
-                            int edit=I_O_Utilities.getInt();
-                            switch (edit){
-                                case 1:
-                                    System.out.println("Type the new DNI");
-                                    String dni_edit=I_O_Utilities.getString();
-                                    edited_client=new Client(dni_edit,null,-1,null,null,-1);
-                                    MC.editClient(selected1,edited_client);
-                                    System.out.println("Client updated successfully");
-                                    System.out.println(RC.getAllClients().get(selected1).toString());
-                                    break;
-                                case 2:
-                                    System.out.println("Type the new Name");
-                                    String name_edit=I_O_Utilities.getString();
-                                    edited_client=new Client(null,name_edit,-1,null,null,-1);
-                                    MC.editClient(selected1,edited_client);
-                                    System.out.println("Client updated successfully");
-                                    System.out.println(RC.getAllClients().get(selected1).toString());
-                                    break;
-                                case 3:
-                                    System.out.println("Type the new Age");
-                                    int age_edit=I_O_Utilities.getInt();
-                                    edited_client=new Client(null,null,age_edit,null,null,-1);
-                                    MC.editClient(selected1,edited_client);
-                                    System.out.println("Client updated successfully");
-                                    System.out.println(RC.getAllClients().get(selected1).toString());
-                                    break;
-                                case 4:
-                                    System.out.println("Type the ammount of address you want to add");
-                                    int add_ammount=I_O_Utilities.getInt();
-                                    ArrayList<String> address_edit=new ArrayList<>();
-                                    for(int i=0;i<add_ammount;i++){
-                                        System.out.println("Type the new Address");
-                                        String ad_line=I_O_Utilities.getString();
-                                        address_edit.add(ad_line);
-                                    }
-                                    edited_client=new Client(null,null,-1,address_edit,null,-1);
-                                    MC.editClient(selected1,edited_client);
-                                    System.out.println("Client updated successfully");
-                                    System.out.println(RC.getAllClients().get(selected1).toString());
-                                    break;
-                                case 5:
-                                    ordersManager(RC.getAllClients().get(selected1));
-                                    break;
-                                case 6:
-                                    System.out.println("Type the ammount of points");
-                                    int points_edit=I_O_Utilities.getInt();
-                                    edited_client=new Client(null,null,-1,null,null,points_edit);
-                                    MC.editClient(selected1,edited_client);
-                                    System.out.println("Client updated successfully");
-                                    System.out.println(RC.getAllClients().get(selected1).toString());
-                                    break;
-                                case 7: exit1=true; break;
-                                default:
-                            }
+                    int selected1 = I_O_Utilities.getInt();
+                    boolean exit1 = false;
+                    do {
+                        if (selected1 == -1) {
+                            exit1 = true;
                         } else {
-                            System.out.println("Something happens, client cannot be edited");
+                            if (RC.getAllClients().get(selected1) != null) {
+                                System.out.println(RC.getAllClients().get(selected1).toString());
+                                System.out.println("1. Edit DNI");
+                                System.out.println("2. Edit Name");
+                                System.out.println("3. Edit Age");
+                                System.out.println("4. Edit Address");
+                                System.out.println("5. Edit Orders");
+                                System.out.println("6. Edit Points");
+                                System.out.println("7. Exit");
+                                Client edited_client = null;
+                                int edit = I_O_Utilities.getInt();
+                                switch (edit) {
+                                    case 1:
+                                        System.out.println("Type the new DNI");
+                                        String dni_edit = I_O_Utilities.getString();
+                                        edited_client = new Client(dni_edit, null, -1, null, null, -1);
+                                        MC.editClient(selected1, edited_client);
+                                        System.out.println("Client updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 2:
+                                        System.out.println("Type the new Name");
+                                        String name_edit = I_O_Utilities.getString();
+                                        edited_client = new Client(null, name_edit, -1, null, null, -1);
+                                        MC.editClient(selected1, edited_client);
+                                        System.out.println("Client updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 3:
+                                        System.out.println("Type the new Age");
+                                        int age_edit = I_O_Utilities.getInt();
+                                        edited_client = new Client(null, null, age_edit, null, null, -1);
+                                        MC.editClient(selected1, edited_client);
+                                        System.out.println("Client updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 4:
+                                        System.out.println("Type the ammount of address you want to add");
+                                        int add_ammount = I_O_Utilities.getInt();
+                                        ArrayList<String> address_edit = new ArrayList<>();
+                                        for (int i = 0; i < add_ammount; i++) {
+                                            System.out.println("Type the new Address");
+                                            String ad_line = I_O_Utilities.getString();
+                                            address_edit.add(ad_line);
+                                        }
+                                        edited_client = new Client(null, null, -1, address_edit, null, -1);
+                                        MC.editClient(selected1, edited_client);
+                                        System.out.println("Client updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 5:
+                                        ordersManager(RC.getAllClients().get(selected1));
+                                        System.out.println("Orders updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 6:
+                                        System.out.println("Type the ammount of points");
+                                        int points_edit = I_O_Utilities.getInt();
+                                        edited_client = new Client(null, null, -1, null, null, points_edit);
+                                        MC.editClient(selected1, edited_client);
+                                        System.out.println("Client updated successfully");
+                                        System.out.println(RC.getAllClients().get(selected1).toString());
+                                        break;
+                                    case 7:
+                                        exit1 = true;
+                                        break;
+                                    default:
+                                }
+                            } else {
+                                System.out.println("Something happens, client cannot be edited");
+                            }
                         }
-                    }
-                    }while(!exit1);
+                    } while (!exit1);
                     break;
                 case 4:
                     System.out.println("Removing clients");
-                    boolean exit2=false;
-                    do{
+                    boolean exit2 = false;
+                    do {
                         System.out.println("Client list");
                         listClients();
                         System.out.println("Please type the number showed before the client to select it...");
                         System.out.println("Or type -1 to cancel delete client");
-                        int selected2=I_O_Utilities.getInt();
-                        if(selected2<=-1){
-                            exit2=true;
-                        }else{
-                            Client removed=RC.getAllClients().get(selected2);
+                        int selected2 = I_O_Utilities.getInt();
+                        if (selected2 <= -1) {
+                            exit2 = true;
+                        } else {
+                            Client removed = RC.getAllClients().get(selected2);
                             if (MC.removeClient(selected2)) {
                                 System.out.println("Client " + removed.toString() + "Deleted");
                             } else {
                                 System.out.println("Something happens, client wasn't removed");
                             }
                         }
-                    }while(!exit2);
+                    } while (!exit2);
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 5:
+                    System.out.println("Press");
                     break;
-                case 6: mg_cli=true; break;
+                case 6:
+                    mg_cli = true;
+                    break;
                 default:
             }
         } while (!mg_cli);
@@ -355,7 +405,7 @@ public class MenuViews {
                     addOrderView(a, LocalDate.now());
                     break;
                 case 2:
-                    Client b= selectClient();
+                    Client b = selectClient();
                     ordersManager(b);
                     break;
                 case 3:
@@ -436,6 +486,47 @@ public class MenuViews {
         return result;
     }
 
+    public AProduct selectProduct() {
+        AProduct result = null;
+        String choice = listMenu();
+        System.out.println("Select a product from the list with the number of the product");
+        System.out.println("It will be added to the order");
+        System.out.println("NOTE: If you want to change ammount, please exit when you select the product instead of adding the same");
+        int choice2 = I_O_Utilities.getInt();
+        switch (choice) {
+            case "veganfood":
+                result = R.getAllVeganFood().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "allfood":
+                result = R.getAllFood().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "alcoholics":
+                result = R.getAllAlcoholicDrinks().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "noalcoholics":
+                result = R.getAllNoAlcoholicDrinks().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "alldrinks":
+                result = R.getAllDrinks().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "celiacs":
+                result = R.getAllCeliacProducts().get(choice2);
+                System.out.println("Product was added");
+                break;
+            case "allproducts":
+                result = R.getAllProducts().get(choice2);
+                System.out.println("Product was added");
+                break;
+            default:
+        }
+        return result;
+    }
+
     public Client selectClient() {
         Client result = null;
         boolean exit = false;
@@ -455,7 +546,7 @@ public class MenuViews {
                         }
                         System.out.println("Please type the number showed before the client name to select it");
                         int s_client = I_O_Utilities.getInt();
-                        if (s_client>-1 && s_client <searched.size()) {
+                        if (s_client > -1 && s_client < searched.size()) {
                             result = searched.get(s_client);
                             System.out.println("Client " + s_client + "." + searched.get(s_client).getName() + " -- " + searched.get(s_client).getDni() + " was selected");
                             case1_exit = true;
@@ -482,7 +573,7 @@ public class MenuViews {
                             }
                             System.out.println("Please type the number showed before the client name to select it");
                             int s_client = I_O_Utilities.getInt();
-                            if (s_client>-1 && s_client <searched.size()) {
+                            if (s_client > -1 && s_client < searched.size()) {
                                 result = searched.get(s_client);
                                 System.out.println("Client " + s_client + "." + searched.get(s_client).getName() + " -- " + searched.get(s_client).getDni() + " was selected");
                                 case2_exit = true;
@@ -505,7 +596,7 @@ public class MenuViews {
                             case3_exit = false;
                         } else {
                             result = RC.searchClientByDni(dni);
-                            System.out.println("Client "+result.toString()+" was selected");
+                            System.out.println("Client " + result.toString() + " was selected");
                             case3_exit = true;
                             exit = true;
                         }
@@ -519,52 +610,145 @@ public class MenuViews {
         return result;
     }
 
-    public void listClients(){
-        for(int i=0;i<RC.getAllClients().size();i++){
-            System.out.println(i+". "+RC.getAllClients().get(i).toString());
+    public void listClients() {
+        for (int i = 0; i < RC.getAllClients().size(); i++) {
+            System.out.println(i + ". " + RC.getAllClients().get(i).toString());
         }
     }
 
-    public void ordersManager(Client c){
-        int selected=0;
-        do{
-            System.out.println("Orders from "+c.getName()+" with DNI->"+c.getDni());
-            System.out.println("1. List all orders");
-            System.out.println("2. Remove orders");
-            System.out.println("3. Update orders");
-            System.out.println("4. Search orders by date");
-            System.out.println("5. Exit");
-            ArrayList<Order> clients_orders=OC.getOrders_byClient(c);
-            int choice=I_O_Utilities.getInt();
-            switch (choice){
+    public void ordersManager(Client c) {
+        int selected = 0;
+        if (c != null && c.getName() != null && c.getDni() != null && c.getOrders() != null)
+            do {
+                System.out.println("Orders from " + c.getName() + " with DNI->" + c.getDni());
+                System.out.println("1. List all orders");
+                System.out.println("2. Remove orders");
+                System.out.println("3. Update orders");
+                System.out.println("4. Exit");
+                ArrayList<Order> clients_orders = OC.getOrders_byClient(c);
+                int choice = I_O_Utilities.getInt();
+                switch (choice) {
+                    case 1:
+                        for (int i = 0; i < clients_orders.size(); i++) {
+                            System.out.println(i + "." + clients_orders.get(i).toString());
+                        }
+                        System.out.println("Press any key to continue...");
+                        I_O_Utilities.getString();
+                        break;
+                    case 2:
+                        System.out.println("Please enter the number before the order to delete it");
+                        int deleted = I_O_Utilities.getInt();
+                        Order removed = null;
+                        if (deleted < clients_orders.size()) {
+                            removed = clients_orders.remove(deleted);
+                            System.out.println("Order " + removed.toString() + " was removed successfully");
+                        }
+                        System.out.println("Press any key to continue...");
+                        I_O_Utilities.getString();
+                        break;
+                    case 3:
+                        System.out.println("Please enter the number before the order to edit it");
+                        int edited = I_O_Utilities.getInt();
+                        Order edited_order = null;
+                        if (edited < clients_orders.size()) {
+                            edited_order = clients_orders.get(edited);
+                            orderEditor(edited_order);
+                        }
+                        System.out.println("Press any key to continue...");
+                        I_O_Utilities.getString();
+                        break;
+                    case 4:
+                        selected = 4;
+                        break;
+                    default:
+                }
+            } while (selected != 4);
+    }
+
+    public void orderEditor(Order o) {
+        int option = 0;
+        do {
+            System.out.println(o.toString());
+            System.out.println("1. Change client");
+            System.out.println("2. Change products");
+            System.out.println("3. Change total");
+            System.out.println("4. Change date");
+            System.out.println("5. Change address");
+            System.out.println("6. Change delivered status");
+            System.out.println("7. Change payed status");
+            option = I_O_Utilities.getInt();
+            switch (option) {
                 case 1:
-                    for(int i=0;i<clients_orders.size();i++){
-                        System.out.println(i+"."+clients_orders.get(i).toString());
-                    }
+                    System.out.println("Please search and select a new client to the order");
+                    Client c = selectClient();
+                    o.setClient(c);
+                    System.out.println("Client from order successfully changed!");
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 2:
-                    System.out.println("Please enter the number before the client to delete it");
-                    int deleted=I_O_Utilities.getInt();
-                    Order removed=null;
-                    if(deleted<clients_orders.size()){
-                        removed=clients_orders.remove(deleted);
-                        System.out.println("Order "+removed.toString()+" was removed successfully");
-                    }
+                    boolean exit = false;
+                    do {
+                        for (int i = 0; i < o.getProducts().size(); i++) {
+                            System.out.println(i + "." + o.getProducts().get(i).toString());
+                        }
+                        System.out.println("Please select the line u want to edit");
+                        System.out.println("Or type -1 to exit");
+                        int line_selected = I_O_Utilities.getInt();
+                        if (line_selected > -1 && line_selected < o.getProducts().size()) {
+                            Line toedit = o.getProducts().get(line_selected);
+                            System.out.println(toedit.toString());
+                            System.out.println("Would you like to change the ammount or the product?");
+                            System.out.println("a=ammount, p=product, another key will exit editing");
+                            char edit_line = I_O_Utilities.getChar();
+                            if (edit_line == 'A' | edit_line == 'a') {
+                                System.out.println("Please type the new amount of the product");
+                                int ammount = I_O_Utilities.getInt();
+                                if (OC.editLine(toedit, ammount, null)) {
+                                    System.out.println("Ammount succesfully changed");
+                                } else {
+                                    System.out.println("Something happens, amount doesn't change");
+                                }
+                            } else if (edit_line == 'P' | edit_line == 'p') {
+                                if (OC.editLine(toedit, -1, selectProduct())) {
+                                    System.out.println("Product was changed!");
+                                } else {
+                                    System.out.println("Product wasn't changed");
+                                }
+                            }
+                        } else if (line_selected <= -1) {
+                            exit = true;
+                        }
+                    } while (!exit);
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 3:
+                    System.out.println("The total price of the order is "+o.getTotal()+" $");
+                    System.out.println("You want to edit it? Press Y to edit");
+                    char choice3 = I_O_Utilities.getChar();
+                    if (choice3 == 'Y' | choice3 == 'y') {
+                        System.out.println("Put the expected price below: ");
+                        double cant=I_O_Utilities.getFloat();
+                        o.setTotal(cant);
+                        System.out.println("Total was changed to: "+o.getTotal());
+                    }else{
+                        System.out.println("The total order doesn't change");
+                    }
+                    System.out.println("Press any key to continue...");
+                    I_O_Utilities.getString();
                     break;
                 case 4:
                     break;
                 case 5:
-                    selected=5;
                     break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                default:
             }
-
-        }while(selected!=5);
+        } while (option != 8);
     }
 
 }

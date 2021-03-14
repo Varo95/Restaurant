@@ -2,15 +2,17 @@ package models;
 
 import interfaces.AProduct;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Drink extends AProduct {
+public class Drink extends AProduct implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private boolean alcoholic;
 
-    public Drink() {
-        //super();
-    }
+    public Drink() {}
 
     public Drink(int id, String name, double price, boolean forCeliac, boolean alcoholic, ArrayList<Integer> bundlePack) {
         super(id, name, price, forCeliac, bundlePack);
@@ -24,7 +26,6 @@ public class Drink extends AProduct {
     public ArrayList<Integer> getBundlePack() {
         return bundlePack;
     }
-
 
     @Override
     public boolean getIsForCeliac() {

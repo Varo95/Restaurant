@@ -17,6 +17,16 @@ public class Order implements Serializable {
     private boolean delivered;
     private boolean payed;
 
+    public Order(Client client, ArrayList<Line> products, double total, LocalDateTime date, String address, boolean delivered, boolean payed) {
+        this.client = client;
+        this.products = products;
+        this.total = total;
+        this.date = date;
+        this.address = address;
+        this.delivered = delivered;
+        this.payed = payed;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -75,8 +85,21 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        return "Order [client=" + client + ", products=" + products + ", total=" + total + ", date="
-                + date + ", address=" + address + ", delivered=" + delivered + ", payed=" + payed + "]";
+        /*"<-Index"+"\n"+
+                "---Client Info---"+"\n"+
+                "Dni= " + dni + "\n" +
+                "Name= " + name + "\n" +
+                "Age= " + age + "\n";*/
+        return "<-Index---------------"+"\n"+
+                "---Order Info---" +"\n"+
+                "Client= "+client.toString()+"\n" +
+                "Products= " + products +"\n"+
+                "Total= " + total +"\n"+
+                "Date= " + date +"\n"+
+                "Address= " + address +"\n"+
+                "Delivered= " + delivered +"\n"+
+                "Payed=" + payed + "\n"+
+                "------------------------------";
     }
 
 

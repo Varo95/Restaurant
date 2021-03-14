@@ -3,14 +3,16 @@ package interfaces;
 import models.Line;
 import models.Order;
 
+import java.util.ArrayList;
+
 public interface IOrderMenuController {
     public boolean addProduct(Order o);
 
-    public Line editLine(Line e, int ammount, AProduct product);
+    public boolean editLine(Line e, int amount, AProduct product);
 
-    public boolean removeLine(Order o, int n);
+    public boolean removeLine(ArrayList<Line> lines, int n);
 
-    public boolean setAddress(String a);
+    public boolean setAddress(Order o,String a);
 
     public boolean savePaid();
 

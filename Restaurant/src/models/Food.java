@@ -2,10 +2,14 @@ package models;
 
 import interfaces.AProduct;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Food extends AProduct {
+public class Food extends AProduct implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private boolean forVegan;
 
     public Food(int id, String name, double price, boolean forCeliac, boolean forVegan, ArrayList<Integer> bundlePack) {
@@ -14,11 +18,6 @@ public class Food extends AProduct {
     }
 
     public Food() {
-    }
-
-    public Food(boolean forVegan) {
-        this.forVegan = forVegan;
-
     }
 
     public boolean isForVegan() {

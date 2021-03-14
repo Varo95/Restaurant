@@ -7,17 +7,17 @@ import java.io.Serializable;
 public class Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 6529685098267757690L;
-    //Atributes of Person
+    //Atributos de Persona
     private String dni;
     private String name;
     private int age;
-
+    //Constructor
     public Person(String dni, String name, int age) {
         this.dni = dni;
         this.name = name;
         this.age = age;
     }
-
+    //Getters y Setters
     public String getDni() {
         return dni;
     }
@@ -64,9 +64,11 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person: Dni=" + dni + "\n" +
-                "Name=" + name + "\n" +
-                "age=" + age + "\n";
+        return  "<-Index---------------"+"\n"+
+                "---Client Info---"+"\n"+
+                "Dni= " + dni + "\n" +
+                "Name= " + name + "\n" +
+                "Age= " + age + "\n";
     }
 
 }

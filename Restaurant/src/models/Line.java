@@ -2,8 +2,12 @@ package models;
 
 import interfaces.AProduct;
 
-public class Line {
+import java.io.Serial;
+import java.io.Serializable;
 
+public class Line implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 6529685098267757690L;
     private AProduct product;
     private int amount;
 
@@ -25,12 +29,12 @@ public class Line {
         this.product = product;
     }
 
-    public int getCantidad() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setCantidad(int cantidad) {
-        this.amount = cantidad;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Override

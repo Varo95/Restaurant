@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import interfaces.AProduct;
+import models.Order;
 import modelsrepository.RepositoryClients;
 import modelsrepository.RepositoryOrders;
 import models.Drink;
@@ -79,6 +80,24 @@ public class RepositoryUtils {
 
 	public boolean saveOrders(String path, RepositoryOrders orders) {
 		boolean result = false;
+		if (path != null && !path.isEmpty()) {
+			FileOutputStream f;
+			try {
+				f = new FileOutputStream(path);
+				ObjectOutputStream of = new ObjectOutputStream(f);
+				of.writeObject(orders);
+				result=true;
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	public boolean saveOrders(String path, ArrayList<Order> orders){
+		boolean result=false;
 		if (path != null && !path.isEmpty()) {
 			FileOutputStream f;
 			try {
