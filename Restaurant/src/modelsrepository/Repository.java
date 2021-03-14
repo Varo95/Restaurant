@@ -25,12 +25,20 @@ public class Repository {
         this.products = RU.loadMenu();
     }
 
-    // TODAS LOS PRODUCTOS
+   
+    /**
+     * Función que devuelve todos los productos
+     * @return Todos los productos
+     */
     public ArrayList<AProduct> getAllProducts() {
         return products;
     }
 
-    // TODAS LAS BEBIDAS
+    
+    /**
+     * Función que devuelve todas las bebidas
+     * @return Todas las bebidas
+     */
     public ArrayList<AProduct> getAllDrinks() {
         ArrayList<AProduct> result = new ArrayList<>();
         Drink tmp = new Drink();
@@ -42,7 +50,12 @@ public class Repository {
         return result;
     }
 
-    // TODAS LAS COMIDAS
+    
+    /**
+     * Función que devuelve todas las comidas
+     * @return Todas las comidas
+     */
+    
     public ArrayList<AProduct> getAllFood() {
         ArrayList<AProduct> result = new ArrayList<>();
         Food tmp = new Food();
@@ -54,7 +67,11 @@ public class Repository {
         return result;
     }
 
-    // TODAS LAS BEBIDAS NO ALCOHOLICAS
+    
+    /**
+     * Función que devuelve todas las bebidas no alcoholicas
+     * @return Todas las bebidas no alcoholicas
+     */
     public ArrayList<AProduct> getAllNoAlcoholicDrinks() {
         ArrayList<AProduct> result = new ArrayList<>();
         Drink tmp = new Drink();
@@ -69,7 +86,11 @@ public class Repository {
         return result;
     }
 
-    // TODAS LAS BEBIDAS ALCOHOLICAS
+    
+    /**
+     * Función que devuelve todas las bebidas alcoholicas
+     * @return Todas las bebidas alcoholicas
+     */
     public ArrayList<AProduct> getAllAlcoholicDrinks() {
         ArrayList<AProduct> result = new ArrayList<>();
         Drink tmp = new Drink();
@@ -84,7 +105,11 @@ public class Repository {
         return result;
     }
 
-    // TODAS LAS COMIDAS VEGANAS
+    
+    /**
+     * Función que devuelve todas las comidas veganas
+     * @return Todas las comidas veganas
+     */
     public ArrayList<AProduct> getAllVeganFood() {
         ArrayList<AProduct> result = new ArrayList<>();
         Food tmp = new Food();
@@ -99,7 +124,11 @@ public class Repository {
         return result;
     }
 
-    // TODAS LAS COMIDAS PARA CELIACOS
+    
+    /**
+     * Función que devuelve todas las comidas para celiacos
+     * @return Todas las comidas para celiacos
+     */
     public ArrayList<AProduct> getAllCeliacProducts() {
         ArrayList<AProduct> result = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
@@ -110,7 +139,12 @@ public class Repository {
         return result;
     }
 
-    // BUSCAR PACK INSERTANDO PRODUCTO
+    
+    /**
+     * Este metodo no se a desarrollado y no se a inplementado
+     * @param 
+     * @return
+     */
     public ArrayList<AProduct> getBundleProduct(AProduct p) {
         ArrayList<AProduct> result = new ArrayList<>();
         Drink d1 = new Drink();
@@ -137,7 +171,12 @@ public class Repository {
         return result;
     }
 
-    // BUSCAR PRODUCTO POR EL NOMBRE
+    
+    /**
+     * Devuelve la lista de los productos encontrados
+     * @param name nombre a buscar 
+     * @return Lista de Productos 
+     */
     public ArrayList<AProduct> searchProduct(String name) {
         ArrayList<AProduct> result = new ArrayList<>();
         for (AProduct product : products) {
@@ -148,7 +187,12 @@ public class Repository {
         return result;
     }
 
-    // BUSCAR BEBIDA POR EL NOMBRE
+    
+    /**
+     * Devuelve la lista de los productos encontrados
+     * @param name nombre a buscar
+     * @return Lista de Productos 
+     */
     public ArrayList<AProduct> searchDrinks(String name) {
         ArrayList<AProduct> result = new ArrayList<>();
         for (AProduct product : products) {
@@ -162,7 +206,11 @@ public class Repository {
         return result;
     }
 
-    // BUSCAR BEBIDA POR EL NOMBRE
+    /**
+     * Devuelve la lista de los productos encontrados
+     * @param name nombre a buscar
+     * @return Lista de Productos 
+     */
     public ArrayList<AProduct> searchFood(String name) {
         ArrayList<AProduct> result = new ArrayList<>();
         for (AProduct product : products) {

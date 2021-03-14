@@ -28,11 +28,18 @@ public class RepositoryOrders implements Serializable {
 	private RepositoryOrders() {
 		this.orders=new ArrayList<Order>();
 	}
-
+/**
+ * 
+ * @return Todas las ordenes
+ */
 	public ArrayList<Order> getAllOrders() {
 		return orders;
 	}
-
+/**
+ * Función que devuelve las ordenes echas por un cliente la cual buscamos por un dni
+ * @param dni del cliente
+ * @return Orden encontrada
+ */
 	public ArrayList<Order> getOrdersByClient(String dni) {
 		ArrayList<Order> result = null;
 		if (dni != null && !dni.isEmpty()) {
@@ -45,7 +52,12 @@ public class RepositoryOrders implements Serializable {
 		}
 		return result;
 	}
-
+/**
+ * Función que devulve una orden comprendida entre una fecha inicial y una fecha final
+ * @param ini fecha inicial
+ * @param end fecha final
+ * @return Orden encontrada
+ */
 	public ArrayList<Order> getOrdersByDate(LocalDate ini, LocalDate end) {
 		ArrayList<Order> result = null;
 		if (ini != null && end != null) {
@@ -60,7 +72,10 @@ public class RepositoryOrders implements Serializable {
 		}
 		return result;
 	}
-
+/**
+ * Función que devuelve las ordenes no enviadas
+ * @return Ordenes encontradas
+ */
 	public ArrayList<Order> getOrdersNoDelivered() {
 		ArrayList<Order> result = null;
 			result = new ArrayList<Order>();
@@ -72,7 +87,10 @@ public class RepositoryOrders implements Serializable {
 		
 		return result;
 	}
-
+	/**
+	 * Función que devuelve las ordenes no pagadas
+	 * @return Ordenes encontradas 
+	 */
 	public ArrayList<Order> getOrdersNoPayed() {
 		ArrayList<Order> result = null;
 			result = new ArrayList<Order>();
@@ -83,7 +101,10 @@ public class RepositoryOrders implements Serializable {
 			}
 		return result;
 	}
-
+	/**
+	 * Función que devuelve todas las ganancias
+	 * @return Ganancias totales
+	 */
 	public double getAllInput(){
 		double result = 0;
 		for (Order order : orders) {
@@ -93,7 +114,12 @@ public class RepositoryOrders implements Serializable {
 		}
 		return result;
 	}
-
+/**
+ * Funcion que devuelve las ganancia comprendidas entre una fecha inicial y otra final
+ * @param ini fecha inicial
+ * @param end fecha final
+ * @return
+ */
 	public double getInputByDate(LocalDate ini, LocalDate end){
 		double result = 0;
 		LocalDateTime ini1=ini.atStartOfDay();
