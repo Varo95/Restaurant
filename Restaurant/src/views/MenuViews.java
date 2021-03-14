@@ -385,23 +385,23 @@ public class MenuViews {
                     System.out.println("1. By DNI");
                     System.out.println("2. By name");
                     System.out.println("3. Exit");
-                    int number=I_O_Utilities.getInt();
-                    if(number==1){
+                    int number = I_O_Utilities.getInt();
+                    if (number == 1) {
                         System.out.println("Please enter a DNI");
-                        String dni_l=I_O_Utilities.getString();
-                        if(RC.searchClientByDni(dni_l)!=null){
+                        String dni_l = I_O_Utilities.getString();
+                        if (RC.searchClientByDni(dni_l) != null) {
                             System.out.println(RC.searchClientByDni(dni_l).toString());
-                        }else{
+                        } else {
                             System.out.println("Client not found, please check out Client database");
                         }
-                    }else if(number==2){
+                    } else if (number == 2) {
                         System.out.println("Please enter a name to search");
-                        String name_l=I_O_Utilities.getString();
-                        if(RC.searchClientByName(name_l)!=null && RC.searchClientByName(name_l).size()>=1){
-                            for (int i=0;i<RC.searchClientByName(name_l).size();i++){
-                                System.out.println(i+"."+RC.searchClientByName(name_l).get(i).toString());
+                        String name_l = I_O_Utilities.getString();
+                        if (RC.searchClientByName(name_l) != null && RC.searchClientByName(name_l).size() >= 1) {
+                            for (int i = 0; i < RC.searchClientByName(name_l).size(); i++) {
+                                System.out.println(i + "." + RC.searchClientByName(name_l).get(i).toString());
                             }
-                        }else{
+                        } else {
                             System.out.println("Clients not found, please check out Client database");
                         }
                     }
@@ -428,8 +428,8 @@ public class MenuViews {
             selected = I_O_Utilities.getInt();
             switch (selected) {
                 case 0:
-                    for (int i=0;i<OC.getAllOrders().size();i++){
-                        System.out.println(i+"."+OC.getAllOrders().get(i).toString());
+                    for (int i = 0; i < OC.getAllOrders().size(); i++) {
+                        System.out.println(i + "." + OC.getAllOrders().get(i).toString());
                     }
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
@@ -590,12 +590,19 @@ public class MenuViews {
                             System.out.println(i + "." + searched.get(i).getName() + " -- " + searched.get(i).getDni() + " -- " + searched.get(i).getPoints());
                         }
                         System.out.println("Please type the number showed before the client name to select it");
+                        System.out.println("Or press -1 to exit");
                         int s_client = I_O_Utilities.getInt();
                         if (s_client > -1 && s_client < searched.size()) {
                             result = searched.get(s_client);
                             System.out.println("Client " + s_client + "." + searched.get(s_client).getName() + " -- " + searched.get(s_client).getDni() + " was selected");
                             case1_exit = true;
                             exit = true;
+                        } else if (s_client <= -1) {
+                            result = new Client("0000000Z", "Unknow", -1, new ArrayList<String>() {{
+                                add("Unknow");
+                            }}, new ArrayList<>(), 0);
+                            System.out.println("A generic client was selected");
+                            case1_exit = true;
                         } else {
                             System.out.println("Number doesn't match with a number of list please retry again");
                             case1_exit = false;
@@ -617,12 +624,19 @@ public class MenuViews {
                                 System.out.println(i + "." + searched.get(i).getName() + " -- " + searched.get(i).getDni() + " -- " + searched.get(i).getPoints());
                             }
                             System.out.println("Please type the number showed before the client name to select it");
+                            System.out.println("Or press -1 to exit");
                             int s_client = I_O_Utilities.getInt();
                             if (s_client > -1 && s_client < searched.size()) {
                                 result = searched.get(s_client);
                                 System.out.println("Client " + s_client + "." + searched.get(s_client).getName() + " -- " + searched.get(s_client).getDni() + " was selected");
                                 case2_exit = true;
                                 exit = true;
+                            } else if (s_client <= -1) {
+                                result = new Client("0000000Z", "Unknow", -1, new ArrayList<String>() {{
+                                    add("Unknow");
+                                }}, new ArrayList<>(), 0);
+                                System.out.println("A generic client was selected");
+                                case2_exit = true;
                             } else {
                                 System.out.println("Number doesn't match with a number of list please retry again");
                                 case2_exit = false;
@@ -634,12 +648,19 @@ public class MenuViews {
                     boolean case3_exit = false;
                     do {
                         System.out.println("Please type the DNI of the client");
+                        System.out.println("Type exit or EXIT for exit");
                         String dni = I_O_Utilities.getString();
                         if (dni.length() == 0) {
                             System.out.println("I can't search a void DNI");
                             System.out.println("Please try again");
                             case3_exit = false;
-                        } else {
+                        } else if(dni.equals("EXIT") | dni.equals("exit")) {
+                            result = new Client("0000000Z", "Unknow", -1, new ArrayList<String>() {{
+                                add("Unknow");
+                            }}, new ArrayList<>(), 0);
+                            System.out.println("A generic client was selected");
+                            case3_exit = true;
+                        }else{
                             result = RC.searchClientByDni(dni);
                             System.out.println("Client " + result.toString() + " was selected");
                             case3_exit = true;
@@ -785,36 +806,36 @@ public class MenuViews {
                     I_O_Utilities.getString();
                     break;
                 case 4:
-                    boolean exit_case4=false;
-                    do{
+                    boolean exit_case4 = false;
+                    do {
                         System.out.println("Please enter the new date of the order ");
                         System.out.println("For example: 2011-12-03T10:15:30+01:00[Europe/Paris]");
-                        String new_date=I_O_Utilities.getString();
-                        try{
+                        String new_date = I_O_Utilities.getString();
+                        try {
                             o.setDate(LocalDateTime.parse(new_date, DateTimeFormatter.ISO_ZONED_DATE_TIME));
-                            exit_case4=true;
-                        }catch (DateTimeParseException e){
+                            exit_case4 = true;
+                        } catch (DateTimeParseException e) {
                             System.out.println("Please type again a date");
-                            exit_case4=false;
+                            exit_case4 = false;
                         }
-                    }while(exit_case4);
+                    } while (exit_case4);
                     System.out.println("Date successfully changed!");
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 5:
                     System.out.println("Type the new address");
-                    String new_address=I_O_Utilities.getString();
+                    String new_address = I_O_Utilities.getString();
                     o.setAddress(new_address);
                     System.out.println("Address changed successfully");
                     System.out.println("Press any key to continue...");
                     I_O_Utilities.getString();
                     break;
                 case 6:
-                    if(o.isPayed()){
+                    if (o.isPayed()) {
                         o.setPayed(false);
                         System.out.println("Order marked as not payed");
-                    }else{
+                    } else {
                         o.setPayed(true);
                         System.out.println("Order marked as payed");
                     }
@@ -822,10 +843,10 @@ public class MenuViews {
                     I_O_Utilities.getString();
                     break;
                 case 7:
-                    if(o.isDelivered()){
+                    if (o.isDelivered()) {
                         o.setDelivered(false);
                         System.out.println("Order marked as not delivered");
-                    }else{
+                    } else {
                         o.setDelivered(true);
                         System.out.println("Order marked as delivered");
                     }

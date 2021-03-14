@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.io.Serializable;
 import models.Order;
+import utilities.RepositoryUtils;
 
 public class RepositoryOrders implements Serializable {
 
@@ -15,7 +16,10 @@ public class RepositoryOrders implements Serializable {
 	private static RepositoryOrders instance;
 
 	public static RepositoryOrders getInstance() {
-		if(instance==null) {
+		RepositoryUtils u = new RepositoryUtils();
+		if (u.loadOrders("orders.data") != null) {
+			instance = u.loadOrders("orders.data");
+		} else {
 			instance = new RepositoryOrders();
 		}
 		return instance;

@@ -115,16 +115,16 @@ public class Repository {
         ArrayList<AProduct> result = new ArrayList<>();
         Drink d1 = new Drink();
         Food f1 = new Food();
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).equals(p)) {
-                if (products.get(i).getClass() == d1.getClass()) {
-                    Drink d2 = (Drink) products.get(i);
+        for (AProduct product : products) {
+            if (product.equals(p)) {
+                if (product.getClass() == d1.getClass()) {
+                    Drink d2 = (Drink) product;
                     for (int j = 0; j < d2.getBundlePack().size(); j++) {
                         int tmp = d2.getBundlePack().get(j);
                         result.add(products.get(tmp));
                     }
-                } else if (products.get(i).getClass() == f1.getClass()) {
-                    Food f2 = (Food) products.get(i);
+                } else if (product.getClass() == f1.getClass()) {
+                    Food f2 = (Food) product;
                     for (int j = 0; j < f2.getBundlePack().size(); j++) {
                         int tmp = f2.getBundlePack().get(j);
                         result.add(products.get(tmp));
@@ -139,10 +139,10 @@ public class Repository {
 
     // BUSCAR PRODUCTO POR EL NOMBRE
     public ArrayList<AProduct> searchProduct(String name) {
-        ArrayList<AProduct> result = null;
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getName().equals(name)) {
-                result.add(products.get(i));
+        ArrayList<AProduct> result = new ArrayList<>();
+        for (AProduct product : products) {
+            if (product.getName().equals(name)) {
+                result.add(product);
             }
         }
         return result;
@@ -151,11 +151,11 @@ public class Repository {
     // BUSCAR BEBIDA POR EL NOMBRE
     public ArrayList<AProduct> searchDrinks(String name) {
         ArrayList<AProduct> result = new ArrayList<>();
-        for (int i = 0; i < products.size(); i++) {
+        for (AProduct product : products) {
             Drink tmp = new Drink();
-            if (products.get(i).getClass() == tmp.getClass()) {
-                if (products.get(i).getName().equals(name)) {
-                    result.add(products.get(i));
+            if (product.getClass() == tmp.getClass()) {
+                if (product.getName().equals(name)) {
+                    result.add(product);
                 }
             }
         }
@@ -165,11 +165,11 @@ public class Repository {
     // BUSCAR BEBIDA POR EL NOMBRE
     public ArrayList<AProduct> searchFood(String name) {
         ArrayList<AProduct> result = new ArrayList<>();
-        for (int i = 0; i < products.size(); i++) {
+        for (AProduct product : products) {
             Food tmp = new Food();
-            if (products.get(i).getClass() == tmp.getClass()) {
-                if (products.get(i).getName().equals(name)) {
-                    result.add(products.get(i));
+            if (product.getClass() == tmp.getClass()) {
+                if (product.getName().equals(name)) {
+                    result.add(product);
                 }
             }
         }

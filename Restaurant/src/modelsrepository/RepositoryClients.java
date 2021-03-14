@@ -40,7 +40,7 @@ public class RepositoryClients implements Serializable {
         if (name != null && !(name.isEmpty())) {
             result = new ArrayList<Client>();
             for (Client c : clients) {
-                if (c.getName().matches("*" + name + "*")) {
+                if (c.getName().matches("\\w^" + name + "$\\w")) {
                     result.add(c);
                 }
             }
