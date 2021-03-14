@@ -16,9 +16,18 @@ public class OrderMenuController implements IOrderMenuController {
     private ArrayList<Order> orders = RO.getAllOrders();
     RepositoryUtils RU=new RepositoryUtils();
 
+    /**
+     * @return La lista de todos los pedidos.
+     */
     public ArrayList<Order> getAllOrders(){
         return this.orders;
     }
+
+    /**
+     * Añade un nuevo pedido a la lista de pedidos
+     * @param o pedido a añadir
+     * @return true si ha podido, false en caso contrario.
+     */
     public boolean addNewOrder(Order o){
         boolean result=false;
         if(o!=null && o.getClient()!=null && !o.getClient().toString().isEmpty()){
@@ -28,6 +37,11 @@ public class OrderMenuController implements IOrderMenuController {
         return result;
     }
 
+    /**
+     * Añade un producto a un pedido
+     * @param o pedido a añadir el producto
+     * @return true si se ha podido, false en caso contrario
+     */
     @Override
     public boolean addProduct(Order o) {
         boolean result = false;
@@ -47,6 +61,13 @@ public class OrderMenuController implements IOrderMenuController {
         return result;
     }
 
+    /**
+     * Edita una línea, la cantidad o el producto
+     * @param e linea a editar
+     * @param amount cantidad a poner
+     * @param product producto que queremos colocar
+     * @return true si se ha podido editar la línea, false en caso contrario.
+     */
     @Override
     public boolean editLine(Line e, int amount, AProduct product) {
         boolean result = false;
@@ -62,6 +83,12 @@ public class OrderMenuController implements IOrderMenuController {
         return result;
     }
 
+    /**
+     * Elimina una línea de los productos de un pedido
+     * @param lines array de lineas
+     * @param n numero de la línea a eliminar
+     * @return true si se ha podido cambiar la linea, false si no.
+     */
     @Override
     public boolean removeLine(ArrayList<Line> lines, int n) {
         boolean result = false;
@@ -75,6 +102,12 @@ public class OrderMenuController implements IOrderMenuController {
 
     }
 
+    /**
+     * Setea la dirección de un pedido a partir de una cadena de texto
+     * @param o pedido a modificar la direccion
+     * @param a cadena de texto a reemplazar
+     * @return true si ha podido, false en caso contrario
+     */
     @Override
     public boolean setAddress(Order o,String a) {
         boolean result=false;
@@ -117,6 +150,11 @@ public class OrderMenuController implements IOrderMenuController {
         return result;
     }
 
+    /**
+     * Este método sirve para devolver los pedidos de un cliente
+     * @param c Cliente a obtener los pedidos
+     * @return los pedidos del cliente
+     */
     public ArrayList<Order> getOrders_byClient(Client c) {
         ArrayList<Order> result = null;
         if (c != null && c.getDni() != null && !c.getDni().isEmpty()) {

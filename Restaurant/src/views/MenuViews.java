@@ -21,6 +21,10 @@ public class MenuViews {
     MainMenuController MC = new MainMenuController();
     OrderMenuController OC = new OrderMenuController();
 
+    /**
+     * Este método no devuelve nada, pero es el menú principal de la aplicación con el que podemos acceder a los
+     * diferentes submenús
+     */
     public void mainmenu() {
         System.out.println("Loading previus data...");
         int selected = 0;
@@ -60,9 +64,13 @@ public class MenuViews {
         } while (selected != 4);
     }
 
+    /**
+     * Este método añade una orden nueva a la lista de órdenes
+     * @param c Cliente relacionado con el pedido
+     * @param id fecha (cogerá la actual por "defecto").
+     */
     public void addOrderView(Client c, LocalDate id) {
         Order result = null;
-        //pidiendo datos
         boolean exit = false;
         ArrayList<Line> order_lines = null;
         do {
@@ -228,6 +236,9 @@ public class MenuViews {
         I_O_Utilities.getString();
     }
 
+    /**
+     * Este método es el submenú para manejar los clientes
+     */
     public void clientsManager() {
         boolean mg_cli = false;
         do {
@@ -414,6 +425,9 @@ public class MenuViews {
         } while (!mg_cli);
     }
 
+    /**
+     * Este muestra el submenú de pedidos
+     */
     public void ordersManager() {
         int selected = 0;
         do {
@@ -464,6 +478,10 @@ public class MenuViews {
 
     }
 
+    /**
+     * Lista la carta de las comidas y bebidas que hay
+     * @return Un string dependiendo de que tipo ha seleccionado el producto
+     */
     public String listMenu() {
         String result = null;
         System.out.println("¿Drink, food, from all for Celiac or from ALL?");
@@ -529,6 +547,10 @@ public class MenuViews {
         return result;
     }
 
+    /**
+     * Selecciona un producto de la carta
+     * @return un producto seleccionado
+     */
     public AProduct selectProduct() {
         AProduct result = null;
         String choice = listMenu();
@@ -570,6 +592,11 @@ public class MenuViews {
         return result;
     }
 
+    /**
+     * En este menú se selecciona un cliente.
+     * Cuando no se selcciona ninguno o no se encuentra alguno disponible, se intruduce un cliente por defecto
+     * @return cliente seleccionado
+     */
     public Client selectClient() {
         Client result = null;
         boolean exit = false;
@@ -673,16 +700,23 @@ public class MenuViews {
                     System.out.println("Please try again with another option");
                     exit = false;
             }
-        } while (!exit && result!=null);
+        } while (!exit);
         return result;
     }
 
+    /**
+     * Este método sirve para mostrar TODOS los clientes por pantalla
+     */
     public void listClients() {
         for (int i = 0; i < RC.getAllClients().size(); i++) {
             System.out.println(i + ". " + RC.getAllClients().get(i).toString());
         }
     }
 
+    /**
+     * Este método sirve para manejar los pedidos de un cliente
+     * @param c Cliente del que manejaremos sus pedidos
+     */
     public void ordersManager(Client c) {
         int selected = 0;
         if (c != null && c.getName() != null && c.getDni() != null && c.getOrders() != null)
@@ -732,6 +766,10 @@ public class MenuViews {
             } while (selected != 4);
     }
 
+    /**
+     * Este método edita un pedido el cual recibe como parámetro
+     * @param o Pedido a modificar
+     */
     public void orderEditor(Order o) {
         int option = 0;
         do {
