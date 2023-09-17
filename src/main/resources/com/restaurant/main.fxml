@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.restaurant.controllers.MainMenuController">
+   <top>
+       <GridPane vgap="5.0" BorderPane.alignment="CENTER">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints percentHeight="50.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <MenuBar>
+               <Menu mnemonicParsing="false" text="%app.menu.archive">
+                   <MenuItem mnemonicParsing="false" text="Close" />
+               </Menu>
+               <Menu mnemonicParsing="false" text="%app.menu.help">
+                   <MenuItem mnemonicParsing="false" text="About" />
+               </Menu>
+           </MenuBar>
+           <TextField fx:id="tfSearch" promptText="%app.main.search" GridPane.rowIndex="1">
+              <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+              </GridPane.margin>
+           </TextField>
+       </GridPane>
+   </top>
+   <center>
+       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+           <Tab fx:id="tabFood" text="%app.main.adminFood">
+               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                   <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                       <GridPane fx:id="productsContent" alignment="CENTER" hgap="35.0" prefHeight="200.0" prefWidth="200.0" vgap="10.0">
+                           <padding>
+                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                       </GridPane>
+                       <Button fx:id="btnAddProduct" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%app.product.add">
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" />
+                     </VBox.margin></Button>
+                   </VBox>
+               </ScrollPane>
+           </Tab>
+           <Tab fx:id="tabClients" text="%app.main.clients">
+               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                  <ListView fx:id="lvClients" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                   <Button fx:id="btnAddClient" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="%app.client.add">
+                       <VBox.margin>
+                           <Insets bottom="15.0" left="15.0" right="15.0" />
+                       </VBox.margin></Button>
+                   </VBox>
+               </ScrollPane>
+           </Tab>
+           <Tab fx:id="tabTables" text="%app.main.tables">
+               <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+           </Tab>
+           <Tab fx:id="tabIndividual" text="%app.main.individual">
+               <BorderPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+           </Tab>
+       </TabPane>
+   </center>
+</BorderPane>
